@@ -1,4 +1,7 @@
 import React from "react";
+import Image from "next/image";
+import { CogIcon, CheckIcon } from "@heroicons/react/24/solid";
+
 
 export function HomeSection({ children }) {
   return (
@@ -32,7 +35,7 @@ export function FeatureItem({ icon, title, description }) {
 export function StatsCard({ title, value, suffix, description, highlight }) {
   return (
     <div
-      className={`rounded-xl p-6 border border-[#FFE066] bg-[var(--yellow-background)]
+      className={`rounded-xl mx-15 p-6 border w-50 h-40 border-[#FFE066] bg-[var(--yellow-background)]
 ${highlight && "hover:shadow-[0_12px_40px_rgba(255,234,0,0.55)]"}
 transition-all duration-300 ease-out
 hover:-translate-y-1
@@ -51,3 +54,135 @@ hover:shadow-[0_8px_30px_rgba(255,234,0,0.35)]`}
     </div>
   );
 }
+export function InfoSection ({
+  image,
+  tag,
+  title,
+  description,
+  points,
+  linkText,
+  linkHref,
+  reverse = false,
+  bgClass = "bg-[#FAFAF8]",
+  accentColor = "blue", // "blue" | "yellow"
+iconType = "tick", // "tick" | "gear"]
+}) {
+  const accentMap = {
+    blue: {
+      tag: "text-blue-600",
+      iconBg: "bg-blue-600",
+      underline: "decoration-blue-600",
+      iconText: "text-white",
+    },
+    yellow: {
+      tag: "text-[#FFEA00]",
+      iconBg: "bg-[#FFEA00]",
+      underline: "decoration-[#FFEA00]",
+      iconText: "text-black",
+    },
+  };
+
+  const iconMap = {
+    tick: "✓",
+    gear: "⚙",
+  };
+
+  const accent = accentMap[accentColor];
+
+  return (
+    <section className={`${bgClass} py-20`}>
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        {/* Image */}
+        <div className={reverse ? "lg:order-2" : "lg:order-1"}>
+          <img src={image} alt={title} className="rounded-xl shadow-lg mx-auto" />
+        </div>
+
+        {/* Content */}
+        <div className={reverse ? "lg:order-1" : "lg:order-2"}>
+          <p className={`text-xs font-semibold tracking-widest mb-3 ${accent.tag}`}>
+            {tag}
+          </p>
+
+          <h2 className="text-3xl font-bold text-[#1C1B17] mb-4">
+            {title}
+          </h2>
+
+          <p className="text-[#3A382E] mb-6 leading-relaxed">
+            {description}
+          </p>
+
+          <ul className="space-y-3 mb-6">
+            {points.map((item) => (
+              <li key={item} className="flex items-center gap-3">
+                <span
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold
+                  ${accent.iconBg} ${accent.iconText}`}
+                >
+                  {iconMap[iconType]}
+                </span>
+                <span className="text-[#1C1B17]">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={linkHref}
+            className={`inline-flex items-center gap-2 font-semibold text-[#1C1B17] underline ${accent.underline}`}
+          >
+            {linkText} →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+export function LanguageCard ({
+  short,
+  title,
+  description,
+  buttonText,
+  accentText,
+  highlighted = false,
+})  {
+  return (
+    <div
+      className="group relative bg-[#FFFDF0] border border-[#FFE066] rounded-xl p-8 text-center
+      transition-all duration-300
+      hover:-translate-y-1
+      hover:shadow-[0_8px_30px_rgba(255,234,0,0.25)]"
+    >
+      {highlighted && (
+        <span
+          className="absolute top-4 right-4 text-xs font-bold
+          bg-[#FFEA00] px-3 py-1 rounded-full
+          opacity-0 scale-95
+          transition-all duration-300
+          group-hover:opacity-100 group-hover:scale-100"
+        >
+          POPULAR
+        </span>
+      )}
+
+      <div className={`text-3xl font-bold mb-4 ${accentText}`}>
+        {short}
+      </div>
+
+      <h3 className="font-semibold text-lg text-[#1C1B17] mb-2">
+        {title}
+      </h3>
+
+      <p className="text-sm text-[#3A382E] mb-6">
+        {description}
+      </p>
+
+      <button
+        className={`px-6 py-2 rounded-full font-semibold text-[#1C1B17]
+        ${highlighted ? "bg-[#FFEA00]" : "border border-[#FFE066]"}
+        allbutton`}
+      >
+        {buttonText}
+      </button>
+    </div>
+  );
+};

@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { PlayIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
-import { HomeSection,StatsCard , FeatureItem, Section2 } from "../components/HomeSection";
+import { HomeSection,StatsCard ,LanguageCard,InfoSection, FeatureItem, Section2 } from "../components/HomeSection";
 
 
 export default function HomePage() {
@@ -170,7 +170,7 @@ export default function HomePage() {
   />
 </Section2>
       </section>
-<section className="bg-[var(--yellow-background)] py-16">
+<section className="bg-[var(--yellow-background)] py-14">
   {/* Heading */}
   <div className="text-center mb-12">
     <h1 className="font-bold text-3xl text-[#1C1B17]">
@@ -239,6 +239,86 @@ export default function HomePage() {
 
   </div>
 </section>
-    </div>
+<section><InfoSection
+iconType="tick"
+  reverse
+  accentColor="yellow"
+  // bgClass="bg-[#FFFBEA]"
+  image="/images/datastructure.png"
+  tag="FOUNDATION"
+  title="What is a Data Structure?"
+  description="Think of data structures as containers for your data. Just as you
+        wouldn’t store water in a paper bag, you need the right structure
+        for your specific data needs to ensure efficiency and speed."
+  points={["Array", "Stack", "Tree"]}
+  linkText="Explore Data Structures"
+  linkHref="#"
+/>
+<InfoSection
+  iconType="gear"
+  accentColor="blue"
+  bgClass="bg-[#FFFDF0]"
+  image="/images/algorithm.png"
+  tag="LOGIC & PROCESS"
+  title="What is an Algorithm?"
+  description="An algorithm is a step-by-step recipe for solving a problem. From
+        sorting a list of names to finding the shortest path on a map,
+        algorithms are the brains behind the operation."
+  points={["Sorting & Searching", "Dynamic Programming", "Greedy Algorithms"]}
+  linkText="Explore Algorithms"
+  linkHref="#"
+/>
+</section>
+<section className="bg-white py-20">
+      {/* Heading */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-[#1C1B17]">
+          Pick Your Language
+        </h2>
+        <p className="mt-2 text-[#3A382E]">
+          Master DSA in your preferred syntax.
+        </p>
+      </div>
+
+      {/* Cards */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6">
+        <LanguageCard
+          short="Py"
+          title="Python Track"
+          description="Perfect for beginners. Clean syntax and powerful libraries."
+          buttonText="Start Python"
+          accentText="text-blue-600"
+          highlighted
+        />
+
+        <LanguageCard
+          short="Ja"
+          title="Java Track"
+          description="Industry standard. Object-oriented and strictly typed."
+          buttonText="Start Java"
+          accentText="text-orange-600"
+          highlighted
+        />
+
+        <LanguageCard
+          short="C++"
+          title="C++ Track"
+          description="High performance. The choice for competitive programming."
+          buttonText="Start C++"
+          accentText="text-blue-700"
+          highlighted
+        />
+
+        <LanguageCard
+          short="Go"
+          title="Golang Track"
+          description="Simple, fast, and great for scalable backend systems."
+          buttonText="Start Golang"
+          accentText="text-sky-500"
+          highlighted
+        />
+      </div>
+    </section>
+  </div>
   );
 }
