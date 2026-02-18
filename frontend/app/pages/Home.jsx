@@ -1,0 +1,244 @@
+"use client";
+import { motion } from "framer-motion";
+import { PlayIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
+import { HomeSection,StatsCard , FeatureItem, Section2 } from "../components/HomeSection";
+
+
+export default function HomePage() {
+  return (
+    <div>
+      <section className="relative bg-[var(--yellow-background)]">
+        <div className="absolute inset-0 pointer-events-none" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-30 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <span className="inline-block px-4 py-1 pb-1 text-sm font-semibold bg-yellow-100 text-yellow-700 rounded-full">
+              Master DSA Visually
+            </span>
+            <h1 className="text-5xl font-extrabold text-gray-900 leading-[1.15] tracking-tight">
+              Master DSA With{" "}
+              <span className="relative inline-block">
+                <span className="absolute left-0 bottom-2 h-10 w-full bg-[#FFEA00] rounded-md -z-0 skew-x-[-2deg]" />
+                <span className="relative z-10">Visuals</span>
+              </span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-xl">
+              Learn Data Structures & Algorithms through interactive visuals,
+              real-world examples, and clean explanations designed for clarity.
+            </p>
+            <ul className="space-y-4 text-gray-700">
+              <li className="flex items-center gap-3">
+                <span className="w-2 h-2 bg-yellow-400 rounded-full" />
+                Step-by-step algorithm animations
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-2 h-2 bg-yellow-400 rounded-full" />
+                Beginner to advanced DSA coverage
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-2 h-2 bg-yellow-400 rounded-full" />
+                Interview-focused problem solving
+              </li>
+            </ul>
+            <div className="flex flex-wrap gap-4 pt-4">
+              <button className="px-8 py-4 rounded-full font-semibold bg-[#FAF43D] text-gray-900 shadow-[0_8px_30px_rgba(255,234,0,0.35)] hover:scale-[1.02] hover:bg-[#FAE70B] transition">
+                Start Learning →
+              </button>
+              <button className="px-6 py-4 rounded-full font-semibold border border-gray-300 text-gray-700 bg-transparent hover:bg-white/60 transition flex items-center gap-2">
+                <PlayIcon className="h-4 w-4 text-gray-800" />
+                <span>View Demo</span>
+              </button>
+            </div>
+          </div>
+          {/* RIGHT CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative flex justify-center"
+          >
+            {/* Knowledge glow */}
+            <div className="absolute w-80 h-80 bg-[#FFEA00]/15 rounded-full blur-3xl -z-10 right-24 top-32" />
+
+            {/* Floating card */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              whileHover={{ scale: 1.03, rotate: -1 }}
+              className="bg-[#292524]/95 backdrop-blur-sm p-10 rounded-2xl shadow-2xl border border-white/10"
+            >
+              {/* Subtle graph hint */}
+              <div className="absolute inset-0 opacity-[0.05] text-white font-mono text-xs p-6 pointer-events-none"></div>
+
+              <div className="relative rotate-[3deg]">
+                {/* Code icon */}
+                <span className="absolute top-0 right-10 text-[#44403c] text-7xl font-mono font-semibold select-none">
+                  {"<>"}
+                </span>
+
+                {/* Code card */}
+                <div className="relative z-10 mt-16 bg-[#44403c] rounded-2xl p-8 font-mono text-sm leading-relaxed shadow-xl max-w-md ring-1 ring-white/10">
+                  {/* Window dots */}
+                  <div className="flex gap-2 pb-3">
+                    <span className="w-3 h-3 bg-red-400 rounded-full" />
+                    <span className="w-3 h-3 bg-yellow-400 rounded-full" />
+                    <span className="w-3 h-3 bg-green-400 rounded-full" />
+                  </div>
+
+                  {/* Execution line */}
+                  <motion.div
+                    animate={{ width: ["0%", "100%"] }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="h-[2px] bg-gradient-to-r from-transparent via-[#FFEA00] to-transparent mb-4"
+                  />
+
+                  <p>
+                    <span className="text-[#FFEA00]">function</span>{" "}
+                    <span className="text-blue-400">MasterDSA</span>
+                    <span className="text-white">() {"{"}</span>
+                  </p>
+
+                  <p className="pl-4 text-gray-300">
+                    <span className="text-green-300">
+                      visualize(); <br />
+                      understand(); <br />
+                      practice(); <br />
+                      repeat(); <br />
+                    </span>
+                    <br />
+                    return{" "}
+                    <span className="text-[#FFEA00]">
+                      "Clarity over complexity."
+                    </span>
+                    ;
+                  </p>
+
+                  <p className="text-white">{"}"}</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+      <section className="bg-[#FFFBCF] py-6">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <FeatureItem
+            icon="🎓"
+            title="Personalized Learning"
+            description="Adapts to your pace and style"
+          />
+          <FeatureItem
+            icon="👁️"
+            title="Visual Explanations"
+            description="See algorithms come to life"
+          />
+          <FeatureItem
+            icon="✨"
+            title="Structured Pathways"
+            description="Curated roadmap to success"
+          />
+        </div>
+      </section>
+      <section>
+       <Section2>
+  <StatsCard
+    title="Daily Stack"
+    value="12"
+    suffix="Days"
+    description="Keep it up! You're on fire!"
+  />
+<StatsCard
+    title="Problem Solved"
+    value="500K+"
+    description="Keep it up! You're on fire!"
+    highlight
+  />
+
+  <StatsCard
+    title="Animations"
+    value="100+"
+    description="Concepts explained visually"
+  />
+
+  <StatsCard
+    title="Pathways"
+    value="20+"
+    description="Structured learning tracks"
+  />
+</Section2>
+      </section>
+<section className="bg-[var(--yellow-background)] py-16">
+  {/* Heading */}
+  <div className="text-center mb-12">
+    <h1 className="font-bold text-3xl text-[#1C1B17]">
+      Why Choose Us?
+    </h1>
+    <p className="mt-3 text-[#3A382E]">
+      Everything you need to crack your next technical interview.
+    </p>
+  </div>
+
+  {/* Cards */}
+  <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+    
+    {[
+      {
+        icon: "👁️",
+        title: "Interactive Visualizer",
+        desc: "See how algorithms work step-by-step with our proprietary visualization engine.",
+      },
+      {
+        icon: "< />",
+        title: "Code Playground",
+        desc: "Write, run and debug code in our powerful in-browser IDE supporting 10+ languages.",
+      },
+      {
+        icon: "📋",
+        title: "Mock Tests",
+        desc: "Practice with real interview questions from top tech companies under time constraints.",
+      },
+      {
+        icon: "▶️",
+        title: "Video Solutions",
+        desc: "Get unstuck with expert video explanations for the toughest problems.",
+      },
+      {
+        icon: "👥",
+        title: "Community Support",
+        desc: "Learn together with peers, discuss approaches, and code pair in real-time.",
+      },
+      {
+        icon: "🏅",
+        title: "Certified Courses",
+        desc: "Earn verified certificates upon completion to showcase on your LinkedIn profile.",
+      },
+    ].map((item, index) => (
+      <div
+        key={index}
+        className="bg-white border border-[#FFE066] rounded-xl p-6
+        transition-all duration-300 ease-out
+        hover:-translate-y-1
+        hover:shadow-[0_8px_30px_rgba(255,234,0,0.35)]"
+      >
+        <div className="w-12 h-12 rounded-full bg-[#FFFBCF] flex items-center justify-center mb-4">
+          <span className="text-lg">{item.icon}</span>
+        </div>
+
+        <h3 className="font-semibold text-lg text-[#1C1B17] mb-2">
+          {item.title}
+        </h3>
+
+        <p className="text-sm text-[#3A382E] leading-relaxed">
+          {item.desc}
+        </p>
+      </div>
+    ))}
+
+  </div>
+</section>
+    </div>
+  );
+}
