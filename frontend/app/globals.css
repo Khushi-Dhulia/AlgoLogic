@@ -5,6 +5,9 @@
  --yellow-background: #FFFDF0;
  --header-color:#1C1B17;
 }
+html {
+  scroll-behavior: smooth;
+}
 nav a{
     @apply transition-colors font-bold relative;
 }
@@ -33,11 +36,12 @@ nav a{
 }
 .allbutton {
   background-color: #FFEA00;
+  transition: all 0.3s ease;
   color: black;
 }
 
 .allbutton:hover {
   background-color: black;
-  /* color: var(--yellow-primary); */
-  color: #FFEA00;
+  color: var(--yellow-primary);
+  transform: translateY(-2px);
 }

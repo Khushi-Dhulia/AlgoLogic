@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { CogIcon, CheckIcon } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 
 
 export function HomeSection({ children }) {
@@ -186,3 +186,62 @@ export function LanguageCard ({
     </div>
   );
 };
+export function TestimonialCard({ text, name, role, image }) {
+  return (
+      <div
+      className="flex flex-col bg-white rounded-xl p-6
+      border border-[#FFE066]
+      transition-all duration-300 ease-out
+      hover:-translate-y-1
+      hover:shadow-[0_12px_40px_rgba(255,234,0,0.35)]"
+    >
+      {/* ⭐ Stars */}
+      <div className="flex gap-1 text-[#FFEA00] mb-3">
+        {Array(5)
+          .fill(0)
+          .map((_, i) => (
+            <span key={i}>★</span>
+          ))}
+      </div>
+
+      {/* 💬 Review */}
+      <p className="text-gray-600 italic mb-6">
+        “{text}”
+      </p>
+
+      {/* 👤 User Info */}
+      <div className="mt-auto flex items-center gap-3">
+        <Image
+          src={image}
+          alt={name}
+          width={40}
+          height={40}
+          className="rounded-full object-cover border-2 border-[#FFEA00]"
+        />
+
+        <div className="min-w-0">
+          <p className="font-semibold truncate">{name}</p>
+          <p className="text-sm text-gray-400 truncate">
+            {role}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+export function Reveal({ children, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{
+        duration: 0.6,
+        ease: "easeOut",
+        delay,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}

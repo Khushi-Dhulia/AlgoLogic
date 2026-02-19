@@ -1,12 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { PlayIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
-import { HomeSection,StatsCard ,LanguageCard,InfoSection, FeatureItem, Section2 } from "../components/HomeSection";
-
+import { HomeSection,StatsCard,Reveal,TestimonialCard,LanguageCard,InfoSection, FeatureItem, Section2 } from "../components/HomeSection";
+import {TestimonialData} from "../components/data/TestimonialData"
 
 export default function HomePage() {
   return (
-    <div>
+    <div><Reveal>
       <section className="relative bg-[var(--yellow-background)]">
         <div className="absolute inset-0 pointer-events-none" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-30 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -40,9 +41,11 @@ export default function HomePage() {
               </li>
             </ul>
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="px-8 py-4 rounded-full font-semibold bg-[#FAF43D] text-gray-900 shadow-[0_8px_30px_rgba(255,234,0,0.35)] hover:scale-[1.02] hover:bg-[#FAE70B] transition">
+              <Link href="/dashboard">
+              <button className="px-8 py-4 rounded-full font-semibold  allbutton text-gray-900 transition">
                 Start Learning →
               </button>
+              </Link>
               <button className="px-6 py-4 rounded-full font-semibold border border-gray-300 text-gray-700 bg-transparent hover:bg-white/60 transition flex items-center gap-2">
                 <PlayIcon className="h-4 w-4 text-gray-800" />
                 <span>View Demo</span>
@@ -122,7 +125,8 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </section></Reveal>
+      <Reveal delay={0.1}>
       <section className="bg-[#FFFBCF] py-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <FeatureItem
@@ -141,7 +145,7 @@ export default function HomePage() {
             description="Curated roadmap to success"
           />
         </div>
-      </section>
+      </section></Reveal><Reveal  delay={0.2}>
       <section>
        <Section2>
   <StatsCard
@@ -169,8 +173,9 @@ export default function HomePage() {
     description="Structured learning tracks"
   />
 </Section2>
-      </section>
-<section className="bg-[var(--yellow-background)] py-14">
+      </section></Reveal>
+<Reveal  delay={0.3}>
+<section className="bg-[var(--yellow-background)] py-20">
   {/* Heading */}
   <div className="text-center mb-12">
     <h1 className="font-bold text-3xl text-[#1C1B17]">
@@ -239,7 +244,10 @@ export default function HomePage() {
 
   </div>
 </section>
-<section><InfoSection
+</Reveal>
+<Reveal  delay={0.4}>
+<section>
+  <InfoSection
 iconType="tick"
   reverse
   accentColor="yellow"
@@ -268,7 +276,7 @@ iconType="tick"
   linkText="Explore Algorithms"
   linkHref="#"
 />
-</section>
+</section></Reveal><Reveal  delay={0.5}>
 <section className="bg-white py-20">
       {/* Heading */}
       <div className="text-center mb-12">
@@ -318,7 +326,99 @@ iconType="tick"
           highlighted
         />
       </div>
-    </section>
+    </section></Reveal><Reveal  delay={0.6}>
+ <section className="py-20 bg-[#FFFDF5]">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-2">
+          Learner Success Stories
+        </h2>
+        <p className="text-center text-gray-500 mb-12">
+          Join thousands of students who transformed their careers.
+        </p>
+
+        <div className="grid gap-6 md:grid-cols-3">
+  {TestimonialData.map((item, i) => (
+    <TestimonialCard  key={i} {...item} />
+  ))}
+</div>
+      </div>
+    </section></Reveal><Reveal  delay={0.7}>
+     <section className="py-20">
+      <div
+        className="max-w-6xl mx-auto px-6 py-20 rounded-3xl text-center
+      bg-gradient-to-br from-[#23210F] via-[#2F2E0E] to-[#383726]
+        shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+      >
+        <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full
+          bg-white/10 text-white text-base font-bold mb-6">
+          ⏱️ Mock Interview Mode
+        </span>
+
+        <h2 className="text-4xl font-bold text-white mb-4">
+          Ready to test your skills?
+        </h2>
+
+        <p className="text-gray-300 max-w-2xl mx-auto mb-8">
+          Take full-length mock tests curated by engineers from FAANG companies.
+          Get instant performance reports and identify weak areas.
+        </p>
+
+        <button className="allbutton
+          text-black font-bold px-8 py-3 rounded-full
+          transition-all duration-300 shadow-lg">
+          Take a Free Mock Test
+        </button>
+      </div>
+    </section></Reveal>
+    <footer className="bg-[#FFFDF5] border-t border-[#FFE066]">
+      <div className="max-w-7xl mx-auto px-4 py-16 grid gap-10 md:grid-cols-4">
+        
+        {/* Brand */}
+        <div>
+          <h3 className="font-bold text-lg mb-3">AlgoLogic</h3>
+          <p className="text-gray-500 text-sm">
+            The smartest way to master Data Structures & Algorithms.
+          </p>
+        </div>
+
+        {/* Platform */}
+        <div>
+          <h4 className="font-semibold mb-3">Platform</h4>
+          <ul className="space-y-2 text-sm text-gray-500">
+            <li>Visualizer</li>
+            <li>Playground</li>
+            <li>Mock Tests</li>
+            <li>Pricing</li>
+          </ul>
+        </div>
+
+        {/* Resources */}
+        <div>
+          <h4 className="font-semibold mb-3">Resources</h4>
+          <ul className="space-y-2 text-sm text-gray-500">
+            <li>Blog</li>
+            <li>Cheat Sheets</li>
+            <li>Interview Guide</li>
+            <li>Community</li>
+          </ul>
+        </div>
+
+        {/* Company */}
+        <div>
+          <h4 className="font-semibold mb-3">Company</h4>
+          <ul className="space-y-2 text-sm text-gray-500">
+            <li>About</li>
+            <li>Careers</li>
+            <li>Privacy</li>
+            <li>Terms</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="text-center text-xs text-gray-400 py-4 border-t">
+        © 2026 AlgoLogic. All rights reserved.
+      </div>
+    </footer>
   </div>
   );
 }
