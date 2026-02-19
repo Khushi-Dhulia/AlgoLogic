@@ -8,9 +8,9 @@ export default function Navbar() {
 
   const nav = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Data Structure', href: '/ds' },
+    { name: 'Algorithms', href: '/algorithms' },
+    { name: 'Mock Test', href: '/mock-test' },
   ];
 
   return (

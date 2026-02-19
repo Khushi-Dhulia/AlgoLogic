@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { PlayIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
-import { HomeSection,StatsCard,Reveal,TestimonialCard,LanguageCard,InfoSection, FeatureItem, Section2 } from "../components/HomeSection";
+import { HomeSection,StatsCard,Reveal,TestimonialCard,Headers,LanguageCard,InfoSection, FeatureItem, Section2 } from "../components/HomeSection";
 import {TestimonialData} from "../components/data/TestimonialData"
 
 export default function HomePage() {
@@ -12,13 +12,13 @@ export default function HomePage() {
         <div className="absolute inset-0 pointer-events-none" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-30 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <span className="inline-block px-4 py-1 pb-1 text-sm font-semibold bg-yellow-100 text-yellow-700 rounded-full">
+            <span className="inline-block px-4 py-1 pb-1 text-sm font-semibold bg-[#FFFBCF] text-yellow-700 rounded-full">
               Master DSA Visually
             </span>
             <h1 className="text-5xl font-extrabold text-gray-900 leading-[1.15] tracking-tight">
               Master DSA With{" "}
               <span className="relative inline-block">
-                <span className="absolute left-0 bottom-2 h-10 w-full bg-[#FFEA00] rounded-md -z-0 skew-x-[-2deg]" />
+                <span className="absolute left-0 bottom-2 h-10 w-full bg-[var(--yellow-primary)] rounded-md -z-0 skew-x-[-2deg]" />
                 <span className="relative z-10">Visuals</span>
               </span>
             </h1>
@@ -46,8 +46,8 @@ export default function HomePage() {
                 Start Learning →
               </button>
               </Link>
-              <button className="px-6 py-4 rounded-full font-semibold border border-gray-300 text-gray-700 bg-transparent hover:bg-white/60 transition flex items-center gap-2">
-                <PlayIcon className="h-4 w-4 text-gray-800" />
+              <button className="px-6 py-4 allbutton rounded-full font-semibold hover:bg-[var(--yellow-primary)]  transition flex items-center gap-2">
+                <PlayIcon className="h-4 w-4 text-black" />
                 <span>View Demo</span>
               </button>
             </div>
@@ -113,7 +113,7 @@ export default function HomePage() {
                     </span>
                     <br />
                     return{" "}
-                    <span className="text-[#FFEA00]">
+                    <span className="text-[var(--yellow-primary)]">
                       "Clarity over complexity."
                     </span>
                     ;
@@ -127,7 +127,7 @@ export default function HomePage() {
         </div>
       </section></Reveal>
       <Reveal delay={0.1}>
-      <section className="bg-[#FFFBCF] py-6">
+      <section className="bg-[#FFFBCF] py-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <FeatureItem
             icon="🎓"
@@ -145,9 +145,9 @@ export default function HomePage() {
             description="Curated roadmap to success"
           />
         </div>
-      </section></Reveal><Reveal  delay={0.2}>
-      <section>
-       <Section2>
+      </section></Reveal>
+      <Reveal  delay={0.2}>
+      <section className="mx-24 my-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
   <StatsCard
     title="Daily Stack"
     value="12"
@@ -172,20 +172,12 @@ export default function HomePage() {
     value="20+"
     description="Structured learning tracks"
   />
-</Section2>
       </section></Reveal>
 <Reveal  delay={0.3}>
-<section className="bg-[var(--yellow-background)] py-20">
+<section className="bg-[var(--yellow-background)] py-16">
   {/* Heading */}
-  <div className="text-center mb-12">
-    <h1 className="font-bold text-3xl text-[#1C1B17]">
-      Why Choose Us?
-    </h1>
-    <p className="mt-3 text-[#3A382E]">
-      Everything you need to crack your next technical interview.
-    </p>
-  </div>
-
+  <Headers header="Why Choose Us?" subtitle="Everything you need to crack your next technical interview."/>
+  
   {/* Cards */}
   <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
     
@@ -223,16 +215,16 @@ export default function HomePage() {
     ].map((item, index) => (
       <div
         key={index}
-        className="bg-white border border-[#FFE066] rounded-xl p-6
+        className="bg-white border border-[var(--yellow-border)] rounded-xl p-6
         transition-all duration-300 ease-out
         hover:-translate-y-1
         hover:shadow-[0_8px_30px_rgba(255,234,0,0.35)]"
       >
-        <div className="w-12 h-12 rounded-full bg-[#FFFBCF] flex items-center justify-center mb-4">
+        <div className="w-12 h-12 rounded-full bg-[var(--yellow-soft)] flex items-center justify-center mb-4">
           <span className="text-lg">{item.icon}</span>
         </div>
 
-        <h3 className="font-semibold text-lg text-[#1C1B17] mb-2">
+        <h3 className="font-semibold text-lg text-[var(--header-color)] mb-2">
           {item.title}
         </h3>
 
@@ -265,7 +257,7 @@ iconType="tick"
 <InfoSection
   iconType="gear"
   accentColor="blue"
-  bgClass="bg-[#FFFDF0]"
+  bgClass="bg-[var(--yellow-background)]"
   image="/images/algorithm.png"
   tag="LOGIC & PROCESS"
   title="What is an Algorithm?"
@@ -278,16 +270,7 @@ iconType="tick"
 />
 </section></Reveal><Reveal  delay={0.5}>
 <section className="bg-white py-20">
-      {/* Heading */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-[#1C1B17]">
-          Pick Your Language
-        </h2>
-        <p className="mt-2 text-[#3A382E]">
-          Master DSA in your preferred syntax.
-        </p>
-      </div>
-
+    <Headers header="Pick Your Language" subtitle="Master DSA in your preferred syntax."/>
       {/* Cards */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6">
         <LanguageCard
@@ -328,19 +311,11 @@ iconType="tick"
       </div>
     </section></Reveal><Reveal  delay={0.6}>
  <section className="py-20 bg-[#FFFDF5]">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-2">
-          Learner Success Stories
-        </h2>
-        <p className="text-center text-gray-500 mb-12">
-          Join thousands of students who transformed their careers.
-        </p>
-
-        <div className="grid gap-6 md:grid-cols-3">
+<Headers header="Learner Success Stories" subtitle="Join thousands of students who transformed their careers."/>
+        <div className="max-w-7xl mx-auto px-4 grid gap-6 md:grid-cols-3">
   {TestimonialData.map((item, i) => (
     <TestimonialCard  key={i} {...item} />
   ))}
-</div>
       </div>
     </section></Reveal><Reveal  delay={0.7}>
      <section className="py-20">
@@ -370,7 +345,7 @@ iconType="tick"
         </button>
       </div>
     </section></Reveal>
-    <footer className="bg-[#FFFDF5] border-t border-[#FFE066]">
+    <footer className="bg-[var(--yellow-background)]  border-2 border-t border-[var(--yellow-border)]">
       <div className="max-w-7xl mx-auto px-4 py-16 grid gap-10 md:grid-cols-4">
         
         {/* Brand */}

@@ -9,23 +9,15 @@ export function HomeSection({ children }) {
   );
 }
 
-export function Section2({ children }) {
-  return (
-    <section className="mx-24 my-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {children}
-    </section>
-  );
-}
-
 export function FeatureItem({ icon, title, description }) {
   return (
     <div className="flex items-center gap-4 flex-1 px-6">
       <div className="w-12 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-        <span className="text-xl">{icon}</span>
+        <span className="text-2xl">{icon}</span>
       </div>
 
       <div>
-        <h3 className="font-bold text-[#1C1B17]">{title}</h3>
+        <h3 className="font-bold text-lg text-[#1C1B17]">{title}</h3>
         <p className="text-sm text-[#3A382E]">{description}</p>
       </div>
     </div>
@@ -35,7 +27,7 @@ export function FeatureItem({ icon, title, description }) {
 export function StatsCard({ title, value, suffix, description, highlight }) {
   return (
     <div
-      className={`rounded-xl mx-15 p-6 border w-50 h-40 border-[#FFE066] bg-[var(--yellow-background)]
+      className={`rounded-xl mx-15 p-6 border w-50 h-40 border-[var(--yellow-border)] bg-[var(--yellow-background)]
 ${highlight && "hover:shadow-[0_12px_40px_rgba(255,234,0,0.55)]"}
 transition-all duration-300 ease-out
 hover:-translate-y-1
@@ -147,7 +139,7 @@ export function LanguageCard ({
 })  {
   return (
     <div
-      className="group relative bg-[#FFFDF0] border border-[#FFE066] rounded-xl p-8 text-center
+      className="group relative bg-[var(--yellow-background)] border border-[var(--yellow-border)] rounded-xl p-8 text-center
       transition-all duration-300
       hover:-translate-y-1
       hover:shadow-[0_8px_30px_rgba(255,234,0,0.25)]"
@@ -178,7 +170,7 @@ export function LanguageCard ({
 
       <button
         className={`px-6 py-2 rounded-full font-semibold text-[#1C1B17]
-        ${highlighted ? "bg-[#FFEA00]" : "border border-[#FFE066]"}
+        ${highlighted ? "bg-[#FFEA00]" : "border border-[var(--yellow-border)]"}
         allbutton`}
       >
         {buttonText}
@@ -190,7 +182,7 @@ export function TestimonialCard({ text, name, role, image }) {
   return (
       <div
       className="flex flex-col bg-white rounded-xl p-6
-      border border-[#FFE066]
+      border border-[var(--yellow-border)]
       transition-all duration-300 ease-out
       hover:-translate-y-1
       hover:shadow-[0_12px_40px_rgba(255,234,0,0.35)]"
@@ -243,5 +235,19 @@ export function Reveal({ children, delay = 0 }) {
     >
       {children}
     </motion.div>
+  );
+}
+export function Headers({header, subtitle}) {
+  return(
+    <div>
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold text-[var(--header-color)]">
+         {header}
+        </h2>
+        <p className="mt-2 text-base font-semibold text-[--dark-muted]">
+          {subtitle}
+        </p>
+      </div>
+    </div>
   );
 }

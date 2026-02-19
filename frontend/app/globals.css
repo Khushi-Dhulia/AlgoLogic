@@ -1,10 +1,21 @@
 @import "tailwindcss";
 :root {
  --yellow-primary: #FFEA00;
- --yellow-soft: #FFFDE6;
+ --yellow-soft: #FFFBCF;
  --yellow-background: #FFFDF0;
+ --yellow-border:#FFE066;
  --header-color:#1C1B17;
+ /* CONTROL */
+  --yellow-soft: #FFF4A3;/*section 2 bg*/
+
+  /* AUTHORITY */
+  --dark-primary: #1C1B17;
+  --dark-muted: #3A382E;
+
+  /* PREMIUM */
+  --dark-surface: #23210F;
 }
+
 html {
   scroll-behavior: smooth;
 }
