@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HomePage from "./pages/Home";
+import BinarySearchPage from "./pages/DataStructure"
 
 export default function Home() {
   return (
@@ -10,7 +11,8 @@ export default function Home() {
     <Navbar/>
         {/* <Login /> 
       <Register/>  */}
-      <HomePage/> 
+      {/* <HomePage/>  */}
+      <BinarySearchPage/>
   </div> 
 );
 }
