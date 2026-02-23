@@ -30,10 +30,10 @@ export function AlgoHeader() {
 export function VideoAndSummary() {
   return (
     <section className="grid md:grid-cols-3 gap-6 px-8 py-12">
-      {/* Video */}
+      {/* Video */}<h1 className="font-bold">Video Explaination</h1>
       <div className="md:col-span-2 bg-gray-200 rounded-xl flex items-center justify-center h-64">
         <button className="bg-[#FFEA00] w-14 h-14 rounded-full font-bold">
-          ▶
+           ▶
         </button>
       </div>
 
