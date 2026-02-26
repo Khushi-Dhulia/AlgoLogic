@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-export default function DoublyLinkedListVisualizer() {
+export default function DoublyLinkedList() {
   const [list, setList] = useState([]);
   const [value, setValue] = useState("");
   const [highlight, setHighlight] = useState(null);
@@ -14,11 +14,14 @@ export default function DoublyLinkedListVisualizer() {
   const insertEnd = async () => {
     if (value === "") return;
 
+    setMessage("");
+
     const newList = [...list, Number(value)];
     setList(newList);
 
     setHighlight(newList.length - 1);
     await sleep(500);
+
     setHighlight(null);
     setValue("");
   };
@@ -27,11 +30,14 @@ export default function DoublyLinkedListVisualizer() {
   const insertStart = async () => {
     if (value === "") return;
 
+    setMessage("");
+
     const newList = [Number(value), ...list];
     setList(newList);
 
     setHighlight(0);
     await sleep(500);
+
     setHighlight(null);
     setValue("");
   };
@@ -40,7 +46,7 @@ export default function DoublyLinkedListVisualizer() {
   const deleteValue = async () => {
     if (value === "") return;
 
-    let index = list.indexOf(Number(value));
+    const index = list.indexOf(Number(value));
 
     if (index === -1) {
       setMessage("❌ Value not found");
@@ -52,7 +58,7 @@ export default function DoublyLinkedListVisualizer() {
     setHighlight(index);
     await sleep(500);
 
-    const newList = list.filter((v, i) => i !== index);
+    const newList = list.filter((_, i) => i !== index);
     setList(newList);
 
     setHighlight(null);
@@ -67,29 +73,27 @@ export default function DoublyLinkedListVisualizer() {
   };
 
   return (
-    <section className="bg-white mx-8 mt-6 p-10 rounded-2xl border shadow-sm space-y-8">
+    <section className="bg-white m-8 p-8 rounded-2xl border shadow">
 
       {/* HEADER */}
-      <div>
-        <h2 className="text-3xl font-bold">Doubly Linked List</h2>
-        <p className="text-sm text-gray-500 mt-1">
-          Each node has Prev + Data + Next
-        </p>
-      </div>
+      <h2 className="text-3xl font-bold mb-6">
+        Doubly Linked List
+      </h2>
 
       {/* CONTROLS */}
-      <div className="flex gap-4 flex-wrap items-center">
+      <div className="flex flex-wrap gap-3 mb-6">
+
         <input
           type="number"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="border px-4 py-2 rounded-lg w-40"
-          placeholder="Enter value"
+          className="border px-3 py-2 rounded-lg w-40"
+          placeholder="Enter number"
         />
 
         <button
           onClick={insertEnd}
-          className="bg-[#FFEA00] px-5 py-2 rounded-lg font-semibold"
+          className="bg-yellow-400 px-5 py-2 rounded-lg font-semibold"
         >
           Insert End
         </button>
@@ -114,55 +118,123 @@ export default function DoublyLinkedListVisualizer() {
         >
           Reset
         </button>
+
       </div>
 
       {message && (
-        <div className="text-red-500 text-sm">{message}</div>
+        <div className="text-red-500 text-sm mb-4">
+          {message}
+        </div>
       )}
 
-      {/* VISUALIZATION */}
-      <div className="flex items-center gap-4 flex-wrap">
+      {/* MAIN GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-        {list.length === 0 && (
-          <span className="text-gray-400">List is empty</span>
-        )}
+        {/* LEFT — VISUALIZATION */}
+        <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 min-h-[120px] flex items-center flex-wrap gap-4">
 
-        {list.map((val, index) => (
-          <div key={index} className="flex items-center gap-4">
+          {list.length === 0 && (
+            <div className="text-gray-400 text-sm">
+              List is empty
+            </div>
+          )}
 
-            {/* LEFT NULL (for first) */}
-            {index === 0 && (
-              <span className="text-sm text-gray-500">null ←</span>
-            )}
+          {list.map((val, index) => (
 
-            {/* NODE */}
-            <div
-              className={`px-4 py-3 border rounded-lg font-bold transition-all min-w-[60px] text-center
-                ${
-                  highlight === index
-                    ? "bg-yellow-300"
-                    : "bg-yellow-100"
-                }`}
-            >
-              {val}
+            <div key={index} className="flex items-center gap-3">
+
+              {/* LEFT NULL */}
+              {index === 0 && (
+                <span className="text-gray-400 text-sm">
+                  null ⇄
+                </span>
+              )}
+
+              {/* NODE */}
+              <div
+                className={`px-5 py-3 rounded-lg border font-bold min-w-[60px] text-center transition-all
+                  ${
+                    highlight === index
+                      ? "bg-yellow-300 border-yellow-500"
+                      : "bg-yellow-100"
+                  }`}
+              >
+                {val}
+              </div>
+
+              {/* ARROW */}
+              {index !== list.length - 1 && (
+                <span className="font-bold text-lg">
+                  ⇄
+                </span>
+              )}
+
+              {/* RIGHT NULL */}
+              {index === list.length - 1 && (
+                <span className="text-gray-400 text-sm">
+                  ⇄ null
+                </span>
+              )}
+
             </div>
 
-            {/* ARROWS */}
-            {index !== list.length - 1 && (
-              <span className="text-xl font-bold">⇄</span>
-            )}
+          ))}
 
-            {/* RIGHT NULL (for last) */}
-            {index === list.length - 1 && (
-              <span className="text-sm text-gray-500">→ null</span>
-            )}
+        </div>
+
+        {/* RIGHT — SIDE PANEL */}
+        <div className="border rounded-xl p-4 bg-white space-y-4">
+
+          {/* LEGEND */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">
+              Legend
+            </h3>
+
+            <div className="text-sm space-y-2">
+
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
+                Normal Node
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-yellow-300 border rounded"></div>
+                Active / Modified Node
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="font-bold">⇄</span>
+                Bidirectional Pointer
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span>null</span>
+                End of List
+              </div>
+
+            </div>
           </div>
-        ))}
-      </div>
 
-      {/* LEGEND */}
-      <div className="text-sm text-gray-500">
-        🟡 Highlighted → active node
+          {/* INFO */}
+          <div className="pt-4 border-t">
+
+            <h3 className="font-semibold text-lg mb-2">
+              Info
+            </h3>
+
+            <p className="text-sm text-gray-600">
+              Doubly Linked List contains nodes with
+              pointers to both previous and next nodes.
+              This allows traversal in both directions
+              and makes deletion easier compared to
+              singly linked list.
+            </p>
+
+          </div>
+
+        </div>
+
       </div>
 
     </section>

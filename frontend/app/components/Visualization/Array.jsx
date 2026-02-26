@@ -12,25 +12,27 @@ export default function ArrayVisualizer() {
   const containerRef = useRef(null);
   const boxRefs = useRef([]);
 
-  /* ---------- LAYOUT ANIMATION FOR RE-INDEXING ---------- */
+  /* ---------- ANIMATION ---------- */
   useLayoutEffect(() => {
+
     if (!containerRef.current) return;
 
     gsap.fromTo(
       boxRefs.current,
-      { x: 20, opacity: 0.8 },
+      { x: 20, opacity: 0.7 },
       {
         x: 0,
         opacity: 1,
         duration: 0.35,
-        ease: "power2.out",
         stagger: 0.05,
       }
     );
+
   }, [arr]);
 
-  /* ---------- CREATE ARRAY ---------- */
+  /* ---------- CREATE ---------- */
   const createArray = () => {
+
     const parsed = input
       .split(",")
       .map((n) => Number(n.trim()))
@@ -41,49 +43,52 @@ export default function ArrayVisualizer() {
 
   /* ---------- RESET ---------- */
   const resetAll = () => {
-    gsap.killTweensOf("*"); // stop running animations
+
+    gsap.killTweensOf("*");
+
     setArr([]);
     setValue("");
     setOperation("push");
+
   };
 
-  /* ---------- APPLY OPERATION ---------- */
+  /* ---------- APPLY ---------- */
   const applyOperation = () => {
+
     if (!arr.length) return;
 
-    // PUSH
     if (operation === "push" && value !== "") {
       setArr([...arr, Number(value)]);
     }
 
-    // POP
     if (operation === "pop") {
+
       const last = boxRefs.current[arr.length - 1];
+
       gsap.to(last, {
         y: -20,
         opacity: 0,
         duration: 0.3,
-        onComplete: () => setArr(arr.slice(0, -1)),
+        onComplete: () => setArr(arr.slice(0, -1))
       });
+
       return;
     }
 
-    // SHIFT
     if (operation === "shift") {
+
       const first = boxRefs.current[0];
 
       gsap.to(first, {
         x: -40,
         opacity: 0,
         duration: 0.3,
-        onComplete: () => {
-          setArr(arr.slice(1));
-        },
+        onComplete: () => setArr(arr.slice(1))
       });
+
       return;
     }
 
-    // UNSHIFT
     if (operation === "unshift" && value !== "") {
       setArr([Number(value), ...arr]);
     }
@@ -92,116 +97,205 @@ export default function ArrayVisualizer() {
   };
 
   return (
-    <section className="bg-white mx-8 mt-6 p-10 rounded-2xl border shadow-sm space-y-10">
+    <section className="bg-white m-8 p-8 rounded-2xl border shadow">
 
       {/* HEADER */}
-      <div>
-        <h2 className="text-3xl font-bold text-gray-800">
-          Array Operations
-        </h2>
-        <p className="text-sm text-gray-500 mt-1">
-          Observe how indices change when array operations are applied.
-        </p>
-      </div>
+      <h2 className="text-3xl font-bold mb-6">
+        Array Operations
+      </h2>
 
-      {/* CREATE ARRAY */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">1️⃣ Create Array</h3>
+      {/* CREATE */}
+      <div className="flex gap-3 mb-6">
 
-        <div className="flex gap-4">
-          <input
-            className="border rounded-lg px-4 py-2 w-full focus:ring-2 focus:ring-yellow-400 outline-none"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="border px-3 py-2 rounded-lg w-60"
+        />
 
+        <button
+          onClick={createArray}
+          className="bg-yellow-400 px-5 py-2 rounded-lg font-semibold"
+        >
+          Create
+        </button>
+
+        {arr.length > 0 && (
           <button
-            onClick={createArray}
-            className="bg-[#FFEA00] px-6 py-2 rounded-lg font-semibold hover:scale-105 transition"
+            onClick={resetAll}
+            className="border px-5 py-2 rounded-lg"
           >
-            Create
+            Reset
           </button>
+        )}
 
-          {arr.length > 0 && (
-            <button
-              onClick={resetAll}
-              className="border px-6 py-2 rounded-lg font-semibold text-gray-600 hover:bg-gray-100 transition"
-            >
-              Reset
-            </button>
-          )}
-        </div>
       </div>
 
-      {/* OPERATIONS */}
-      {arr.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold">2️⃣ Choose Operation</h3>
+      {/* MAIN GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-          <div className="flex gap-4 flex-wrap items-center">
-            <select
-              value={operation}
-              onChange={(e) => setOperation(e.target.value)}
-              className="border px-4 py-2 rounded-lg"
-            >
-              <option value="push">push() – add at end</option>
-              <option value="pop">pop() – remove last</option>
-              <option value="shift">shift() – remove first</option>
-              <option value="unshift">unshift() – add at start</option>
-            </select>
+        {/* LEFT PANEL */}
+        <div className="lg:col-span-3 border rounded-xl p-6 bg-gray-50 space-y-6">
 
-            {(operation === "push" || operation === "unshift") && (
-              <input
-                className="border px-4 py-2 rounded-lg"
-                placeholder="Value"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
-            )}
+          {/* OPERATIONS */}
+          {arr.length > 0 && (
+            <div className="flex gap-3 flex-wrap items-center">
 
-            <button
-              onClick={applyOperation}
-              className="bg-yellow-100 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-200 transition"
-            >
-              Apply
-            </button>
-          </div>
+              <select
+                value={operation}
+                onChange={(e) =>
+                  setOperation(e.target.value)
+                }
+                className="border px-3 py-2 rounded-lg"
+              >
 
-          <p className="text-sm text-gray-500">
-            {operation === "shift" &&
-              "All remaining elements shift left → index decreases by 1"}
-          </p>
-        </div>
-      )}
+                <option value="push">push()</option>
+                <option value="pop">pop()</option>
+                <option value="shift">shift()</option>
+                <option value="unshift">unshift()</option>
 
-      {/* VISUALIZATION */}
-      {arr.length > 0 && (
-        <div className="space-y-6">
-          <h3 className="text-lg font-semibold">3️⃣ Visualization</h3>
+              </select>
+
+              {(operation === "push" ||
+                operation === "unshift") && (
+
+                <input
+                  value={value}
+                  onChange={(e) =>
+                    setValue(e.target.value)
+                  }
+                  placeholder="Value"
+                  className="border px-3 py-2 rounded-lg w-32"
+                />
+
+              )}
+
+              <button
+                onClick={applyOperation}
+                className="bg-yellow-100 px-5 py-2 rounded-lg font-semibold"
+              >
+                Apply
+              </button>
+
+            </div>
+          )}
+
+          {/* VISUAL */}
+          {arr.length === 0 && (
+            <div className="text-gray-400 text-sm">
+              Array is empty
+            </div>
+          )}
 
           <div
             ref={containerRef}
-            className="flex gap-6 items-start"
+            className="flex gap-6 flex-wrap"
           >
+
             {arr.map((num, i) => (
-              <div key={i} className="flex flex-col items-center">
+
+              <div
+                key={i}
+                className="flex flex-col items-center"
+              >
+
                 <div
-                  ref={(el) => (boxRefs.current[i] = el)}
-                  className="w-16 h-16 bg-[#FFF9C4] rounded-xl
+                  ref={(el) =>
+                    (boxRefs.current[i] = el)
+                  }
+                  className="w-16 h-16 bg-yellow-100
                              flex items-center justify-center
-                             font-bold text-lg shadow-md"
+                             rounded-xl font-bold shadow"
                 >
                   {num}
                 </div>
 
-                <span className="text-xs text-gray-500 mt-2">
+                <span className="text-xs text-gray-500 mt-1">
                   index {i}
                 </span>
+
               </div>
+
             ))}
+
+          </div>
+
+        </div>
+
+        {/* RIGHT SIDE PANEL */}
+        <div className="border rounded-xl p-4 bg-white space-y-4">
+
+          {/* LEGEND */}
+          <div>
+
+            <h3 className="font-semibold text-lg mb-2">
+              Legend
+            </h3>
+
+            <div className="space-y-2 text-sm">
+
+              <div className="flex gap-2 items-center">
+                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
+                Array Element
+              </div>
+
+              <div className="flex gap-2 items-center">
+                <div className="w-4 h-4 bg-white border rounded"></div>
+                Empty Space
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* INFO */}
+          <div className="pt-4 border-t">
+
+            <h3 className="font-semibold text-lg mb-2">
+              Info
+            </h3>
+
+            <p className="text-sm text-gray-600">
+              An array stores elements in contiguous memory.
+              Each element is accessed using its index.
+              Operations like push, pop, shift, and unshift
+              modify array structure and indices.
+            </p>
+
+          </div>
+
+          {/* STATS */}
+          <div className="pt-4 border-t">
+
+            <h3 className="font-semibold text-lg mb-2">
+              Stats
+            </h3>
+
+            <div className="text-sm text-gray-600 space-y-1">
+
+              <div>Size: {arr.length}</div>
+
+              <div>
+                First Element:
+                {" "}
+                {arr.length ? arr[0] : "None"}
+              </div>
+
+              <div>
+                Last Element:
+                {" "}
+                {arr.length
+                  ? arr[arr.length - 1]
+                  : "None"}
+              </div>
+
+              <div>
+                Current Operation: {operation}
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 }
