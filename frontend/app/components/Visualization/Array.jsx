@@ -3,7 +3,7 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 
-export default function ArrayVisualizer() {
+export default function Array() {
   const [input, setInput] = useState("4,7,2,9");
   const [value, setValue] = useState("");
   const [arr, setArr] = useState([]);
@@ -98,12 +98,10 @@ export default function ArrayVisualizer() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* HEADER */}
       <h2 className="text-3xl font-bold mb-6">
         Array Operations
       </h2>
-
       {/* CREATE */}
       <div className="flex gap-3 mb-6">
 
@@ -130,10 +128,8 @@ export default function ArrayVisualizer() {
         )}
 
       </div>
-
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
         {/* LEFT PANEL */}
         <div className="lg:col-span-3 border rounded-xl p-6 bg-gray-50 space-y-6">
 
@@ -221,19 +217,14 @@ export default function ArrayVisualizer() {
           </div>
 
         </div>
-
         {/* RIGHT SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-
-          {/* LEGEND */}
+          {/* COLOR KEY */}
           <div>
-
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
+            <h3 className="font-bold text-lg mb-2">
+            Color Key
             </h3>
-
             <div className="space-y-2 text-sm">
-
               <div className="flex gap-2 items-center">
                 <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
                 Array Element
@@ -243,54 +234,32 @@ export default function ArrayVisualizer() {
                 <div className="w-4 h-4 bg-white border rounded"></div>
                 Empty Space
               </div>
-
             </div>
-
           </div>
-
-          {/* INFO */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
+          {/* STAUTS */}
+          <div className="pt-2 border-t">
+            <h3 className="font-bold text-lg mb-2">
+              Status
             </h3>
+            <div className="text-sm space-y-1">
+              <div><span className="font-semibold">Size: </span>{arr.length}</div>
 
-            <p className="text-sm text-gray-600">
-              An array stores elements in contiguous memory.
-              Each element is accessed using its index.
-              Operations like push, pop, shift, and unshift
-              modify array structure and indices.
-            </p>
-
-          </div>
-
-          {/* STATS */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Stats
-            </h3>
-
-            <div className="text-sm text-gray-600 space-y-1">
-
-              <div>Size: {arr.length}</div>
-
-              <div>
-                First Element:
+              <div><span className="font-semibold">
+                First Element:</span>
                 {" "}
                 {arr.length ? arr[0] : "None"}
               </div>
 
-              <div>
-                Last Element:
+              <div><span className="font-semibold">
+                Last Element:</span>
                 {" "}
                 {arr.length
                   ? arr[arr.length - 1]
                   : "None"}
               </div>
 
-              <div>
-                Current Operation: {operation}
+              <div><span className="font-semibold">
+                Current Operation:</span> {operation}
               </div>
             </div>
           </div>

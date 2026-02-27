@@ -4,12 +4,12 @@ import { useState } from "react";
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-export default function QuickSort() {
+export default function SelectionSort() {
   const [array, setArray] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [pivotIndex, setPivotIndex] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const [minIndex, setMinIndex] = useState(null);
   const [compareIndex, setCompareIndex] = useState(null);
-  const [activeIndices, setActiveIndices] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
   const [error, setError] = useState("");
@@ -51,64 +51,55 @@ export default function QuickSort() {
     if (isRunning) return;
     setArray([]);
     setSortedIndices([]);
-    setPivotIndex(null);
+    setCurrentIndex(null);
+    setMinIndex(null);
     setCompareIndex(null);
-    setActiveIndices([]);
     setError("");
   };
 
-  const startQuickSort = async () => {
+  const startSelectionSort = async () => {
     if (isRunning || array.length === 0) return;
+
     setIsRunning(true);
     const arr = [...array];
-    await quickSort(arr, 0, arr.length - 1);
 
-    setSortedIndices(arr.map((_, i) => i));
-    setPivotIndex(null);
-    setCompareIndex(null);
-    setActiveIndices([]);
-    setIsRunning(false);
-  };
+    for (let i = 0; i < arr.length; i++) {
+      let min = i;
+      setCurrentIndex(i);
+      setMinIndex(i);
 
-  const quickSort = async (arr, low, high) => {
-    if (low < high) {
-      const pi = await partition(arr, low, high);
-      await quickSort(arr, low, pi - 1);
-      await quickSort(arr, pi + 1, high);
-    }
-  };
+      for (let j = i + 1; j < arr.length; j++) {
+        setCompareIndex(j);
+        await sleep(speed);
 
-  const partition = async (arr, low, high) => {
-    const pivot = arr[high];
-    setPivotIndex(high);
-    let i = low - 1;
+        if (arr[j] < arr[min]) {
+          min = j;
+          setMinIndex(j);
+          await sleep(speed);
+        }
+      }
 
-    for (let j = low; j < high; j++) {
-      setCompareIndex(j);
-      await sleep(speed);
-
-      if (arr[j] < pivot) {
-        i++;
-        setActiveIndices([i, j]);
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+      if (min !== i) {
+        [arr[i], arr[min]] = [arr[min], arr[i]];
         setArray([...arr]);
         await sleep(speed);
       }
+
+      setSortedIndices((prev) => [...prev, i]);
     }
 
-    [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-    setArray([...arr]);
-    setSortedIndices((prev) => [...prev, i + 1]);
-    await sleep(speed);
-
-    return i + 1;
+    setCurrentIndex(null);
+    setMinIndex(null);
+    setCompareIndex(null);
+    setSortedIndices(arr.map((_, i) => i));
+    setIsRunning(false);
   };
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
 
       {/* Header */}
-      <h2 className="text-3xl font-bold mb-6">Quick Sort</h2>
+      <h2 className="text-3xl font-bold mb-6">Selection Sort</h2>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-2">
@@ -133,7 +124,7 @@ export default function QuickSort() {
         </button>
 
         <button
-          onClick={startQuickSort}
+          onClick={startSelectionSort}
           disabled={isRunning}
           className="bg-yellow-400 px-5 py-2 rounded-lg font-semibold disabled:opacity-50"
         >
@@ -157,9 +148,7 @@ export default function QuickSort() {
 
       {/* Error */}
       {error && (
-        <div className="text-red-500 text-sm mb-4 font-medium">
-          {error}
-        </div>
+        <div className="text-red-500 text-sm mb-4 font-medium">{error}</div>
       )}
 
       {/* Main Layout */}
@@ -167,7 +156,6 @@ export default function QuickSort() {
 
         {/* LEFT Visualization */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-full min-h-[320px] flex items-end gap-2">
-
           {array.length === 0 && (
             <div className="text-gray-400 text-sm">Add values to begin...</div>
           )}
@@ -175,9 +163,9 @@ export default function QuickSort() {
           {array.map((value, index) => {
             let color = "bg-blue-500";
             if (sortedIndices.includes(index)) color = "bg-green-500";
-            if (index === pivotIndex) color = "bg-purple-500";
+            if (index === currentIndex) color = "bg-yellow-500";
+            if (index === minIndex) color = "bg-purple-500";
             if (index === compareIndex) color = "bg-red-500";
-            if (activeIndices.includes(index)) color = "bg-yellow-500";
 
             return (
               <div
@@ -189,7 +177,6 @@ export default function QuickSort() {
               </div>
             );
           })}
-
         </div>
 
         {/* RIGHT Panel */}
@@ -199,21 +186,11 @@ export default function QuickSort() {
           <div>
             <h3 className="font-semibold text-lg mb-2">Legend</h3>
             <div className="text-sm space-y-2">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-blue-500 rounded"></div> Unsorted
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-500 rounded"></div> Sorted
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-purple-500 rounded"></div> Pivot
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-red-500 rounded"></div> Comparing
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-500 rounded"></div> Swapping
-              </div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-blue-500 rounded"></div> Unsorted</div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-green-500 rounded"></div> Sorted</div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-yellow-500 rounded"></div> Current Position (i)</div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-purple-500 rounded"></div> Current Minimum</div>
+              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-red-500 rounded"></div> Comparing</div>
             </div>
           </div>
 
@@ -230,7 +207,7 @@ export default function QuickSort() {
           <div className="pt-4 border-t">
             <h3 className="font-semibold text-lg mb-2">Info</h3>
             <p className="text-sm text-gray-600">
-              Quick Sort uses divide and conquer strategy. It selects a pivot and partitions the array recursively around it.
+              Selection Sort repeatedly finds the minimum element from the unsorted portion and moves it to the sorted portion.
             </p>
           </div>
 

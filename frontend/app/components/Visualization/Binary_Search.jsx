@@ -84,14 +84,11 @@ export default function BinarySearch() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow space-y-6">
-
       <h2 className="text-3xl font-bold">
         Binary Search Visualizer
       </h2>
-
       {/* INPUTS */}
       <div className="flex gap-4 flex-wrap">
-
         <input
           type="number"
           placeholder="Add number"
@@ -108,7 +105,6 @@ export default function BinarySearch() {
         >
           Add & Sort
         </button>
-
         <input
           type="number"
           placeholder="Search value"
@@ -138,27 +134,20 @@ export default function BinarySearch() {
 
       {/* MAIN LAYOUT */}
       <div className="flex gap-8">
-
         {/* LEFT SIDE → ARRAY */}
         <div className="flex-1 border rounded-xl p-6 bg-gray-50 flex gap-4 flex-wrap min-h-[200px]">
-
           {array.length === 0 && (
             <div className="text-gray-400">
               Add numbers to begin
             </div>
           )}
-
           {array.map((item, index) => (
-
             <div key={index} className="flex flex-col items-center">
-
               <div className="text-xs text-gray-500">
                 {index}
               </div>
-
               <div
                 className={`w-16 h-16 rounded-lg flex items-center justify-center font-bold transition-all duration-300
-
                 ${foundIndex === index
                   ? "bg-green-500 text-white scale-110"
                   : mid === index
@@ -173,18 +162,14 @@ export default function BinarySearch() {
               >
                 {item}
               </div>
-
             </div>
-
           ))}
-
         </div>
 
         {/* RIGHT SIDE → DETAILS PANEL */}
         <div className="w-64 border rounded-xl p-6 bg-white space-y-4 shadow">
-
           <div>
-            <div className="font-semibold text-gray-700">
+            <div className="font-bold text-gray-700">
               Status
             </div>
 
@@ -210,23 +195,16 @@ export default function BinarySearch() {
             <div>
               🟢 Found Index: {foundIndex ?? "-"}
             </div>
-
           </div>
-
           <div className="border-t pt-3 text-sm space-y-1">
-
-            <div>Legend:</div>
+            <div className="font-bold text-lg">Color Key:</div>
             <div>🔵 Low Pointer</div>
             <div>🔴 High Pointer</div>
             <div>🟡 Middle Pointer</div>
             <div>🟢 Found Value</div>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

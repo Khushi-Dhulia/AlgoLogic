@@ -170,16 +170,13 @@ export default function BinaryTree() {
 
         {/* RIGHT — SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-
-          {/* LEGEND */}
+          {/* COLOR KEY */}
           <div>
-
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
+            <h3 className="font-bold text-lg mb-2">
+              Color Key
             </h3>
 
             <div className="space-y-2 text-sm">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border rounded-full"></div>
                 Tree Node
@@ -193,49 +190,22 @@ export default function BinaryTree() {
             </div>
 
           </div>
-
-          {/* INFO */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
-            </h3>
-
-            <p className="text-sm text-gray-600">
-              A Binary Search Tree stores values in sorted order.
-              Left child is smaller than parent, right child is larger.
-              This enables fast searching, insertion, and deletion.
-            </p>
-
-          </div>
-
           {/* TREE STATS */}
           <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Tree Stats
+            <h3 className="font-bold text-lg mb-2">
+              Tree Status
             </h3>
-
-            <div className="text-sm text-gray-600 space-y-1">
-
-              <div>Nodes: {totalNodes}</div>
-
-              <div>Max Nodes: {MAX_NODES}</div>
-
-              <div>Depth: {depth}</div>
-
-              <div>
-                Status: {root ? "Active" : "Empty"}
+            <div className="text-sm space-y-1">
+              <div><span className="font-semibold">Nodes:</span> {totalNodes}</div>
+              <div><span className="font-semibold">Max Nodes:</span> {MAX_NODES}</div>
+              <div><span className="font-semibold">Depth:</span> {depth}</div>
+              <div><span className="font-semibold">
+                Status:</span> {root ? "Active" : "Empty"}
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

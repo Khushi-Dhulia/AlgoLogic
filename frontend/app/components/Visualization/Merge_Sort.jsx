@@ -11,17 +11,40 @@ export default function MergeSort() {
   const [activeIndices, setActiveIndices] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [error, setError] = useState("");
 
   const speed = 350;
 
   const maxValue = Math.max(...array, 1);
 
+  // ADD VALUE WITH VALIDATION
   const addValue = () => {
+
+    setError("");
 
     if (!inputValue) return;
 
+    if (array.length >= 20) {
+      setError("Maximum 20 values allowed");
+      return;
+    }
+
     const number = Number(inputValue);
-    if (isNaN(number)) return;
+
+    if (isNaN(number)) {
+      setError("Please enter a valid number");
+      return;
+    }
+
+    if (number > 200) {
+      setError("Maximum value allowed is 200");
+      return;
+    }
+
+    if (number < 0) {
+      setError("Minimum value allowed is 0");
+      return;
+    }
 
     setArray((prev) => [...prev, number]);
     setInputValue("");
@@ -34,12 +57,14 @@ export default function MergeSort() {
     setArray([]);
     setActiveIndices([]);
     setSortedIndices([]);
+    setError("");
   };
 
   const startMergeSort = async () => {
 
     if (isRunning || array.length === 0) return;
 
+    setError("");
     setIsRunning(true);
 
     const arr = [...array];
@@ -94,7 +119,6 @@ export default function MergeSort() {
       await sleep(speed);
 
       arr[k++] = leftArr[i++];
-
       setArray([...arr]);
     }
 
@@ -105,7 +129,6 @@ export default function MergeSort() {
       await sleep(speed);
 
       arr[k++] = rightArr[j++];
-
       setArray([...arr]);
     }
   }
@@ -120,20 +143,22 @@ export default function MergeSort() {
       </h2>
 
       {/* Controls */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      <div className="flex flex-wrap gap-3 mb-2">
 
         <input
           type="number"
           value={inputValue}
           disabled={isRunning}
+          min="0"
+          max="200"
           onChange={(e) => setInputValue(e.target.value)}
-          className="border px-3 py-2 rounded-lg w-40"
-          placeholder="Enter number"
+          className="border px-3 py-2 rounded-lg w-48"
+          placeholder="Enter number (0–200)"
         />
 
         <button
           onClick={addValue}
-          disabled={isRunning}
+          disabled={isRunning || array.length >= 20}
           className="bg-blue-500 text-white px-4 py-2 rounded-lg disabled:opacity-50"
         >
           Add
@@ -157,11 +182,23 @@ export default function MergeSort() {
 
       </div>
 
+      {/* Remaining slots */}
+      <div className="text-sm text-gray-500 mb-1">
+        {array.length}/20 values used
+      </div>
+
+      {/* Error */}
+      {error && (
+        <div className="text-red-500 text-sm mb-4 font-medium">
+          {error}
+        </div>
+      )}
+
       {/* Main Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 
         {/* LEFT Visualization */}
-        <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-80 flex items-end gap-2">
+        <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-full min-h-[320px] flex items-end gap-2">
 
           {array.length === 0 && (
             <div className="text-gray-400 text-sm">
@@ -198,31 +235,56 @@ export default function MergeSort() {
         </div>
 
         {/* RIGHT Panel */}
-        <div className="border rounded-xl p-4 bg-white space-y-4">
+        <div className="border rounded-xl p-4 bg-white space-y-4 h-full flex flex-col">
 
-          <h3 className="font-semibold text-lg">
-            Legend
-          </h3>
+          {/* Legend */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">
+              Legend
+            </h3>
 
-          <div className="text-sm space-y-2">
+            <div className="text-sm space-y-2">
 
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-blue-500 rounded"></div>
-              Unsorted
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                Unsorted
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-red-500 rounded"></div>
+                Currently Merging
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-500 rounded"></div>
+                Sorted
+              </div>
+
             </div>
+          </div>
 
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-red-500 rounded"></div>
-              Currently Merging
-            </div>
+          {/* Limits */}
+          <div className="pt-4 border-t">
 
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-green-500 rounded"></div>
-              Sorted
+            <h3 className="font-semibold text-lg mb-2">
+              Limits
+            </h3>
+
+            <div className="text-sm text-gray-600 space-y-1">
+
+              <div>
+                <strong>Maximum Values:</strong> 20
+              </div>
+
+              <div>
+                <strong>Number Range:</strong> 0 – 200
+              </div>
+
             </div>
 
           </div>
 
+          {/* Info */}
           <div className="pt-4 border-t">
 
             <h3 className="font-semibold text-lg mb-2">
@@ -231,17 +293,8 @@ export default function MergeSort() {
 
             <p className="text-sm text-gray-600">
               Merge Sort uses divide and conquer. It splits the array into halves,
-              sorts each half recursively, and then merges them in sorted order.
+              sorts each half recursively, and merges them in sorted order.
             </p>
-
-            <div className="text-sm text-gray-600 mt-2">
-              <strong>Time Complexity:</strong> O(n log n)
-            </div>
-
-            <div className="text-sm text-gray-600">
-              <strong>Space Complexity:</strong> O(n)
-            </div>
-
           </div>
 
         </div>
