@@ -70,15 +70,11 @@ export default function CircularLinkedList() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* HEADER */}
-      <h2 className="text-3xl font-bold mb-6">
-        Circular Linked List
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Circular Linked List</h2>
 
       {/* CONTROLS */}
       <div className="flex flex-wrap gap-3 mb-6">
-
         <input
           type="text"
           value={value}
@@ -94,10 +90,7 @@ export default function CircularLinkedList() {
           Insert End
         </button>
 
-        <button
-          onClick={insertStart}
-          className="border px-5 py-2 rounded-lg"
-        >
+        <button onClick={insertStart} className="border px-5 py-2 rounded-lg">
           Insert Start
         </button>
 
@@ -114,22 +107,15 @@ export default function CircularLinkedList() {
         >
           Reset
         </button>
-
       </div>
 
       {/* ERROR */}
-      {error && (
-        <div className="text-red-500 text-sm mb-4">
-          {error}
-        </div>
-      )}
+      {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
       {/* MAIN GRID LAYOUT */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
         {/* LEFT — VISUALIZATION */}
         <div className="lg:col-span-3 border rounded-xl p-6 bg-gray-50 min-h-[150px] flex flex-wrap items-center gap-4">
-
           {list.length === 0 && (
             <span className="text-gray-400 text-sm">
               Circular list is empty
@@ -138,7 +124,6 @@ export default function CircularLinkedList() {
 
           {list.map((val, index) => (
             <div key={index} className="flex items-center gap-4">
-
               {/* NODE */}
               <div
                 className={`px-5 py-3 border rounded-lg font-bold transition-all
@@ -155,39 +140,25 @@ export default function CircularLinkedList() {
               {index !== list.length - 1 && (
                 <span className="text-xl font-bold">→</span>
               )}
-
             </div>
           ))}
 
           {/* CIRCULAR CONNECTION */}
           {list.length > 1 && (
             <div className="w-full mt-4 flex items-center gap-2 text-gray-600">
+              <span className="text-sm">Tail connects back to Head</span>
 
-              <span className="text-sm">
-                Tail connects back to Head
-              </span>
-
-              <span className="text-xl font-bold">
-                ⟲
-              </span>
-
+              <span className="text-xl font-bold">⟲</span>
             </div>
           )}
-
         </div>
 
         {/* RIGHT — SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-
-          {/* LEGEND */}
+          {/* COLOR KEY */}
           <div>
-
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
-            </h3>
-
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
                 Normal Node
@@ -202,40 +173,15 @@ export default function CircularLinkedList() {
                 <span className="font-bold">→</span>
                 Next Pointer
               </div>
-
               <div className="flex items-center gap-2">
                 <span className="font-bold">⟲</span>
                 Tail connects to Head
               </div>
-
-              <div className="flex items-center gap-2">
-                No NULL pointer
-              </div>
-
+              <div className="flex items-center gap-2">No NULL pointer</div>
             </div>
-
           </div>
-
-          {/* INFO */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
-            </h3>
-
-            <p className="text-sm text-gray-600">
-              Circular Linked List is a linked list where the last node
-              points back to the first node, forming a loop. This allows
-              traversal from any node without reaching a null end.
-              It is useful in applications requiring continuous cycling.
-            </p>
-
-          </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

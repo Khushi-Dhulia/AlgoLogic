@@ -74,15 +74,11 @@ export default function DoublyLinkedList() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* HEADER */}
-      <h2 className="text-3xl font-bold mb-6">
-        Doubly Linked List
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Doubly Linked List</h2>
 
       {/* CONTROLS */}
       <div className="flex flex-wrap gap-3 mb-6">
-
         <input
           type="number"
           value={value}
@@ -98,10 +94,7 @@ export default function DoublyLinkedList() {
           Insert End
         </button>
 
-        <button
-          onClick={insertStart}
-          className="border px-5 py-2 rounded-lg"
-        >
+        <button onClick={insertStart} className="border px-5 py-2 rounded-lg">
           Insert Start
         </button>
 
@@ -118,36 +111,23 @@ export default function DoublyLinkedList() {
         >
           Reset
         </button>
-
       </div>
 
-      {message && (
-        <div className="text-red-500 text-sm mb-4">
-          {message}
-        </div>
-      )}
+      {message && <div className="text-red-500 text-sm mb-4">{message}</div>}
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
         {/* LEFT — VISUALIZATION */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 min-h-[120px] flex items-center flex-wrap gap-4">
-
           {list.length === 0 && (
-            <div className="text-gray-400 text-sm">
-              List is empty
-            </div>
+            <div className="text-gray-400 text-sm">List is empty</div>
           )}
 
           {list.map((val, index) => (
-
             <div key={index} className="flex items-center gap-3">
-
               {/* LEFT NULL */}
               {index === 0 && (
-                <span className="text-gray-400 text-sm">
-                  null ⇄
-                </span>
+                <span className="text-gray-400 text-sm">null ⇄</span>
               )}
 
               {/* NODE */}
@@ -164,35 +144,23 @@ export default function DoublyLinkedList() {
 
               {/* ARROW */}
               {index !== list.length - 1 && (
-                <span className="font-bold text-lg">
-                  ⇄
-                </span>
+                <span className="font-bold text-lg">⇄</span>
               )}
 
               {/* RIGHT NULL */}
               {index === list.length - 1 && (
-                <span className="text-gray-400 text-sm">
-                  ⇄ null
-                </span>
+                <span className="text-gray-400 text-sm">⇄ null</span>
               )}
-
             </div>
-
           ))}
-
         </div>
 
         {/* RIGHT — SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-
-          {/* LEGEND */}
+          {/* Color Key */}
           <div>
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
-            </h3>
-
+            <h3 className="font-semibold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
                 Normal Node
@@ -212,31 +180,11 @@ export default function DoublyLinkedList() {
                 <span>null</span>
                 End of List
               </div>
-
             </div>
           </div>
 
-          {/* INFO */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
-            </h3>
-
-            <p className="text-sm text-gray-600">
-              Doubly Linked List contains nodes with
-              pointers to both previous and next nodes.
-              This allows traversal in both directions
-              and makes deletion easier compared to
-              singly linked list.
-            </p>
-
-          </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

@@ -8,15 +8,12 @@ export default function BinarySearch() {
   const [array, setArray] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
-
   const [low, setLow] = useState(null);
   const [high, setHigh] = useState(null);
   const [mid, setMid] = useState(null);
   const [foundIndex, setFoundIndex] = useState(null);
-
   const [message, setMessage] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-
   const addNumber = () => {
     if (!inputValue || isSearching) return;
 
@@ -84,9 +81,7 @@ export default function BinarySearch() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow space-y-6">
-      <h2 className="text-3xl font-bold">
-        Binary Search Visualizer
-      </h2>
+      <h2 className="text-3xl font-bold">Binary Search Visualizer</h2>
       {/* INPUTS */}
       <div className="flex gap-4 flex-wrap">
         <input
@@ -129,7 +124,6 @@ export default function BinarySearch() {
         >
           Reset
         </button>
-
       </div>
 
       {/* MAIN LAYOUT */}
@@ -137,26 +131,23 @@ export default function BinarySearch() {
         {/* LEFT SIDE → ARRAY */}
         <div className="flex-1 border rounded-xl p-6 bg-gray-50 flex gap-4 flex-wrap min-h-[200px]">
           {array.length === 0 && (
-            <div className="text-gray-400">
-              Add numbers to begin
-            </div>
+            <div className="text-gray-400">Add numbers to begin</div>
           )}
           {array.map((item, index) => (
             <div key={index} className="flex flex-col items-center">
-              <div className="text-xs text-gray-500">
-                {index}
-              </div>
+              <div className="text-xs text-gray-500">{index}</div>
               <div
                 className={`w-16 h-16 rounded-lg flex items-center justify-center font-bold transition-all duration-300
-                ${foundIndex === index
-                  ? "bg-green-500 text-white scale-110"
-                  : mid === index
-                  ? "bg-yellow-400 scale-110"
-                  : index === low
-                  ? "bg-blue-400 text-white"
-                  : index === high
-                  ? "bg-red-400 text-white"
-                  : "bg-yellow-200"
+                ${
+                  foundIndex === index
+                    ? "bg-green-500 text-white scale-110"
+                    : mid === index
+                      ? "bg-yellow-400 scale-110"
+                      : index === low
+                        ? "bg-blue-400 text-white"
+                        : index === high
+                          ? "bg-red-400 text-white"
+                          : "bg-yellow-200"
                 }
                 `}
               >
@@ -169,32 +160,20 @@ export default function BinarySearch() {
         {/* RIGHT SIDE → DETAILS PANEL */}
         <div className="w-64 border rounded-xl p-6 bg-white space-y-4 shadow">
           <div>
-            <div className="font-bold text-gray-700">
-              Status
-            </div>
-
+            <div className="font-bold text-lg">Status</div>
             <div className="text-blue-600 text-sm mt-1 min-h-[40px]">
               {message || "Waiting to start..."}
             </div>
           </div>
 
           <div className="space-y-2 text-sm">
+            <div>🔵 Low Index: {low ?? "-"}</div>
 
-            <div>
-              🔵 Low Index: {low ?? "-"}
-            </div>
+            <div>🔴 High Index: {high ?? "-"}</div>
 
-            <div>
-              🔴 High Index: {high ?? "-"}
-            </div>
+            <div>🟡 Mid Index: {mid ?? "-"}</div>
 
-            <div>
-              🟡 Mid Index: {mid ?? "-"}
-            </div>
-
-            <div>
-              🟢 Found Index: {foundIndex ?? "-"}
-            </div>
+            <div>🟢 Found Index: {foundIndex ?? "-"}</div>
           </div>
           <div className="border-t pt-3 text-sm space-y-1">
             <div className="font-bold text-lg">Color Key:</div>

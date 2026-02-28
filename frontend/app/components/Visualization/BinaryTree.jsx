@@ -41,15 +41,11 @@ function countNodes(node) {
 /* ---------- DEPTH ---------- */
 function getTreeDepth(node) {
   if (!node) return 0;
-  return 1 + Math.max(
-    getTreeDepth(node.left),
-    getTreeDepth(node.right)
-  );
+  return 1 + Math.max(getTreeDepth(node.left), getTreeDepth(node.right));
 }
 
 /* ---------- MAIN ---------- */
 export default function BinaryTree() {
-
   const [value, setValue] = useState("");
   const [root, setRoot] = useState(null);
   const [message, setMessage] = useState("");
@@ -57,7 +53,6 @@ export default function BinaryTree() {
   const MAX_NODES = 15;
 
   const handleInsert = () => {
-
     if (value === "") return;
 
     const number = Number(value);
@@ -90,22 +85,17 @@ export default function BinaryTree() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* HEADER */}
-      <h2 className="text-3xl font-bold mb-6">
-        Binary Search Tree
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Binary Search Tree</h2>
 
       {/* CONTROLS */}
       <div className="flex flex-wrap gap-3 mb-6">
-
         <input
           type="number"
           max="999"
           value={value}
           onChange={(e) => {
-            if (e.target.value.length <= 3)
-              setValue(e.target.value);
+            if (e.target.value.length <= 3) setValue(e.target.value);
           }}
           placeholder="Enter value"
           className="border px-3 py-2 rounded-lg w-40"
@@ -115,66 +105,44 @@ export default function BinaryTree() {
           onClick={handleInsert}
           disabled={totalNodes >= MAX_NODES}
           className={`px-5 py-2 rounded-lg font-semibold ${
-            totalNodes >= MAX_NODES
-              ? "bg-gray-300"
-              : "bg-yellow-400"
+            totalNodes >= MAX_NODES ? "bg-gray-300" : "bg-yellow-400"
           }`}
         >
           Insert
         </button>
 
         {root && (
-          <button
-            onClick={resetTree}
-            className="border px-5 py-2 rounded-lg"
-          >
+          <button onClick={resetTree} className="border px-5 py-2 rounded-lg">
             Reset
           </button>
         )}
-
       </div>
 
       {/* MESSAGE */}
       {message && (
-        <div className="text-sm mb-4 text-gray-700 font-medium">
-          {message}
-        </div>
+        <div className="text-sm mb-4 text-gray-700 font-medium">{message}</div>
       )}
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
         {/* LEFT — TREE */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50">
-
-          {!root && (
-            <div className="text-gray-400 text-sm">
-              Tree is empty
-            </div>
-          )}
+          {!root && <div className="text-gray-400 text-sm">Tree is empty</div>}
 
           {root && (
             <div className="overflow-x-auto">
               <svg width="1200" height={svgHeight}>
-                <TreeNodeView
-                  node={root}
-                  x={600}
-                  y={40}
-                  gap={240}
-                />
+                <TreeNodeView node={root} x={600} y={40} gap={240} />
               </svg>
             </div>
           )}
-
         </div>
 
         {/* RIGHT — SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
           {/* COLOR KEY */}
           <div>
-            <h3 className="font-bold text-lg mb-2">
-              Color Key
-            </h3>
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
 
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
@@ -186,21 +154,24 @@ export default function BinaryTree() {
                 <div className="w-4 h-1 bg-gray-400"></div>
                 Parent → Child Link
               </div>
-
             </div>
-
           </div>
           {/* TREE STATS */}
           <div className="pt-4 border-t">
-            <h3 className="font-bold text-lg mb-2">
-              Tree Status
-            </h3>
+            <h3 className="font-bold text-lg mb-2">Tree Status</h3>
             <div className="text-sm space-y-1">
-              <div><span className="font-semibold">Nodes:</span> {totalNodes}</div>
-              <div><span className="font-semibold">Max Nodes:</span> {MAX_NODES}</div>
-              <div><span className="font-semibold">Depth:</span> {depth}</div>
-              <div><span className="font-semibold">
-                Status:</span> {root ? "Active" : "Empty"}
+              <div>
+                <span className="font-semibold">Nodes:</span> {totalNodes}
+              </div>
+              <div>
+                <span className="font-semibold">Max Nodes:</span> {MAX_NODES}
+              </div>
+              <div>
+                <span className="font-semibold">Depth:</span> {depth}
+              </div>
+              <div>
+                <span className="font-semibold">Status:</span>{" "}
+                {root ? "Active" : "Empty"}
               </div>
             </div>
           </div>
@@ -212,23 +183,15 @@ export default function BinaryTree() {
 
 /* ---------- TREE VIEW ---------- */
 function TreeNodeView({ node, x, y, gap }) {
-
   if (!node) return null;
 
   const nextGap = Math.max(gap / 1.5, 80);
 
   return (
     <>
-
       {node.left && (
         <>
-          <line
-            x1={x}
-            y1={y}
-            x2={x - nextGap}
-            y2={y + 90}
-            stroke="#999"
-          />
+          <line x1={x} y1={y} x2={x - nextGap} y2={y + 90} stroke="#999" />
           <TreeNodeView
             node={node.left}
             x={x - nextGap}
@@ -240,13 +203,7 @@ function TreeNodeView({ node, x, y, gap }) {
 
       {node.right && (
         <>
-          <line
-            x1={x}
-            y1={y}
-            x2={x + nextGap}
-            y2={y + 90}
-            stroke="#999"
-          />
+          <line x1={x} y1={y} x2={x + nextGap} y2={y + 90} stroke="#999" />
           <TreeNodeView
             node={node.right}
             x={x + nextGap}
@@ -256,24 +213,11 @@ function TreeNodeView({ node, x, y, gap }) {
         </>
       )}
 
-      <circle
-        cx={x}
-        cy={y}
-        r={22}
-        fill="#FFF9C4"
-        stroke="#333"
-      />
+      <circle cx={x} cy={y} r={22} fill="#FFF9C4" stroke="#333" />
 
-      <text
-        x={x}
-        y={y + 5}
-        textAnchor="middle"
-        fontWeight="bold"
-        fontSize="14"
-      >
+      <text x={x} y={y + 5} textAnchor="middle" fontWeight="bold" fontSize="14">
         {node.value}
       </text>
-
     </>
   );
 }

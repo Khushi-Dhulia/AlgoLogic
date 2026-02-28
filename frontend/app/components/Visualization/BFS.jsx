@@ -3,9 +3,7 @@
 import { useState } from "react";
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
-
 export default function BFS() {
-
   const graph = {
     A: ["B", "C"],
     B: ["D", "E"],
@@ -41,11 +39,9 @@ export default function BFS() {
   const [isRunning, setIsRunning] = useState(false);
 
   const startBFS = async () => {
-
     if (isRunning) return;
 
     setIsRunning(true);
-
     setVisited([]);
     setActiveNode(null);
     setActiveEdge(null);
@@ -61,7 +57,6 @@ export default function BFS() {
     setMessage("Starting BFS...");
 
     while (queue.length > 0) {
-
       const node = queue.shift();
 
       setActiveNode(node);
@@ -73,9 +68,7 @@ export default function BFS() {
       setQueueState([...queue]);
 
       for (let neighbor of graph[node]) {
-
         if (!seen.has(neighbor)) {
-
           queue.push(neighbor);
           seen.add(neighbor);
 
@@ -95,7 +88,6 @@ export default function BFS() {
   };
 
   const reset = () => {
-
     setVisited([]);
     setActiveNode(null);
     setActiveEdge(null);
@@ -105,22 +97,14 @@ export default function BFS() {
   };
 
   return (
-
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* Header */}
-      <h2 className="text-3xl font-bold mb-6">
-        Breadth First Search (BFS)
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Breadth First Search (BFS)</h2>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-4 mb-4">
-
         <div className="flex items-center gap-2">
-
-          <label className="text-sm font-medium">
-            Start Node:
-          </label>
+          <label className="text-sm font-medium">Start Node:</label>
 
           <select
             value={startNode}
@@ -134,7 +118,6 @@ export default function BFS() {
               </option>
             ))}
           </select>
-
         </div>
 
         <button
@@ -152,30 +135,19 @@ export default function BFS() {
         >
           Reset
         </button>
-
       </div>
 
       {/* Message */}
-      {message && (
-        <div className="text-sm text-blue-600 mb-4">
-          {message}
-        </div>
-      )}
+      {message && <div className="text-sm text-blue-600 mb-4">{message}</div>}
 
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
         {/* LEFT Graph */}
         <div className="lg:col-span-3 border rounded-xl bg-gray-50 relative h-[420px]">
-
           <svg className="absolute w-full h-full">
-
             {edges.map(([from, to], index) => {
-
               const isActive =
-                activeEdge &&
-                activeEdge[0] === from &&
-                activeEdge[1] === to;
+                activeEdge && activeEdge[0] === from && activeEdge[1] === to;
 
               return (
                 <line
@@ -189,18 +161,14 @@ export default function BFS() {
                 />
               );
             })}
-
           </svg>
 
           {Object.keys(positions).map((node) => {
-
             let color = "bg-yellow-100";
 
-            if (visited.includes(node))
-              color = "bg-green-400";
+            if (visited.includes(node)) color = "bg-green-400";
 
-            if (activeNode === node)
-              color = "bg-yellow-400 scale-110";
+            if (activeNode === node) color = "bg-yellow-400 scale-110";
 
             return (
               <div
@@ -215,21 +183,15 @@ export default function BFS() {
               </div>
             );
           })}
-
         </div>
 
         {/* RIGHT Panel */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-
-          {/* Legend */}
+          {/* Color Key */}
           <div>
-
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
-            </h3>
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
 
             <div className="space-y-2 text-sm">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
                 Unvisited
@@ -244,24 +206,16 @@ export default function BFS() {
                 <div className="w-4 h-4 bg-green-400 border rounded"></div>
                 Visited
               </div>
-
             </div>
-
           </div>
 
           {/* Queue */}
           <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Queue
-            </h3>
+            <h3 className="font-semibold text-lg mb-2">Queue</h3>
 
             <div className="flex gap-2 flex-wrap">
-
               {queueState.length === 0 && (
-                <span className="text-sm text-gray-400">
-                  Empty
-                </span>
+                <span className="text-sm text-gray-400">Empty</span>
               )}
 
               {queueState.map((node, i) => (
@@ -272,37 +226,10 @@ export default function BFS() {
                   {node}
                 </div>
               ))}
-
             </div>
-
           </div>
-
-          {/* Info */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
-            </h3>
-
-            <p className="text-sm text-gray-600">
-              BFS explores nodes level by level using a queue.
-              It visits all neighbors first before going deeper.
-            </p>
-
-            <div className="text-sm text-gray-600 mt-2">
-              <strong>Time Complexity:</strong> O(V + E)
-            </div>
-
-            <div className="text-sm text-gray-600">
-              <strong>Space Complexity:</strong> O(V)
-            </div>
-
-          </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

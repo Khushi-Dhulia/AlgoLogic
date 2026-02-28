@@ -5,21 +5,17 @@ import { useState } from "react";
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function MergeSort() {
-
   const [array, setArray] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [activeIndices, setActiveIndices] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
   const [error, setError] = useState("");
-
   const speed = 350;
-
   const maxValue = Math.max(...array, 1);
 
   // ADD VALUE WITH VALIDATION
   const addValue = () => {
-
     setError("");
 
     if (!inputValue) return;
@@ -51,7 +47,6 @@ export default function MergeSort() {
   };
 
   const clearArray = () => {
-
     if (isRunning) return;
 
     setArray([]);
@@ -61,7 +56,6 @@ export default function MergeSort() {
   };
 
   const startMergeSort = async () => {
-
     if (isRunning || array.length === 0) return;
 
     setError("");
@@ -77,7 +71,6 @@ export default function MergeSort() {
   };
 
   async function mergeSort(arr, left, right) {
-
     if (left >= right) return;
 
     const mid = Math.floor((left + right) / 2);
@@ -89,7 +82,6 @@ export default function MergeSort() {
   }
 
   async function merge(arr, left, mid, right) {
-
     const leftArr = arr.slice(left, mid + 1);
     const rightArr = arr.slice(mid + 1, right + 1);
 
@@ -98,7 +90,6 @@ export default function MergeSort() {
     let k = left;
 
     while (i < leftArr.length && j < rightArr.length) {
-
       setActiveIndices([k]);
 
       await sleep(speed);
@@ -113,7 +104,6 @@ export default function MergeSort() {
     }
 
     while (i < leftArr.length) {
-
       setActiveIndices([k]);
 
       await sleep(speed);
@@ -123,7 +113,6 @@ export default function MergeSort() {
     }
 
     while (j < rightArr.length) {
-
       setActiveIndices([k]);
 
       await sleep(speed);
@@ -134,17 +123,12 @@ export default function MergeSort() {
   }
 
   return (
-
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* Header */}
-      <h2 className="text-3xl font-bold mb-6">
-        Merge Sort
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Merge Sort</h2>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-2">
-
         <input
           type="number"
           value={inputValue}
@@ -179,7 +163,6 @@ export default function MergeSort() {
         >
           Clear
         </button>
-
       </div>
 
       {/* Remaining slots */}
@@ -189,35 +172,22 @@ export default function MergeSort() {
 
       {/* Error */}
       {error && (
-        <div className="text-red-500 text-sm mb-4 font-medium">
-          {error}
-        </div>
+        <div className="text-red-500 text-sm mb-4 font-medium">{error}</div>
       )}
 
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
-
         {/* LEFT Visualization */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-full min-h-[320px] flex items-end gap-2">
-
           {array.length === 0 && (
-            <div className="text-gray-400 text-sm">
-              Add values to begin...
-            </div>
+            <div className="text-gray-400 text-sm">Add values to begin...</div>
           )}
-
           {array.map((value, index) => {
-
             let color = "bg-blue-500";
 
-            if (sortedIndices.includes(index))
-              color = "bg-green-500";
-
-            if (activeIndices.includes(index))
-              color = "bg-red-500";
-
+            if (sortedIndices.includes(index)) color = "bg-green-500";
+            if (activeIndices.includes(index)) color = "bg-red-500";
             return (
-
               <div
                 key={index}
                 className={`w-10 flex items-end justify-center text-xs font-bold text-white rounded transition-all duration-300 ${color}`}
@@ -227,24 +197,16 @@ export default function MergeSort() {
               >
                 {value}
               </div>
-
             );
-
           })}
-
         </div>
 
         {/* RIGHT Panel */}
         <div className="border rounded-xl p-4 bg-white space-y-4 h-full flex flex-col">
-
-          {/* Legend */}
+          {/* Color Key */}
           <div>
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
-            </h3>
-
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-blue-500 rounded"></div>
                 Unsorted
@@ -259,19 +221,14 @@ export default function MergeSort() {
                 <div className="w-4 h-4 bg-green-500 rounded"></div>
                 Sorted
               </div>
-
             </div>
           </div>
 
           {/* Limits */}
           <div className="pt-4 border-t">
+            <h3 className="font-bold text-lg mb-2">Limits</h3>
 
-            <h3 className="font-semibold text-lg mb-2">
-              Limits
-            </h3>
-
-            <div className="text-sm text-gray-600 space-y-1">
-
+            <div className="text-sm space-y-1">
               <div>
                 <strong>Maximum Values:</strong> 20
               </div>
@@ -279,29 +236,10 @@ export default function MergeSort() {
               <div>
                 <strong>Number Range:</strong> 0 – 200
               </div>
-
             </div>
-
           </div>
-
-          {/* Info */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
-            </h3>
-
-            <p className="text-sm text-gray-600">
-              Merge Sort uses divide and conquer. It splits the array into halves,
-              sorts each half recursively, and merges them in sorted order.
-            </p>
-          </div>
-
         </div>
-
       </div>
-
     </section>
-
   );
 }

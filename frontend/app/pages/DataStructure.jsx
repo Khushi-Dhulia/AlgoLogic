@@ -7,7 +7,7 @@ import HeapSort from "../components/Visualization/Heap_Sort";
 import SingleLinkedList from "../components/Visualization/Single_Linked_List";
 import DoublyLinkedList from "../components/Visualization/Double_linked_List";
 import CircularLinkedList from "../components/Visualization/Circular_Linked_List";
-import SingleQueue from "../components/Visualization/Simple_queue";
+import SingleQueue from "../components/Visualization/Single_queue";
 import CircularQueue from "../components/Visualization/Circular_queue";
 import PriorityQueue from "../components/Visualization/Priority_queue";
 import Deque from "../components/Visualization/Deque_queue";

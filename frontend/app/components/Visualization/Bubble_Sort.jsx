@@ -74,9 +74,7 @@ export default function BubbleSort() {
           await sleep(speed);
         }
       }
-
       setSortedIndices((prev) => [...prev, n - i - 1]);
-
       if (!swapped) break;
     }
 
@@ -87,13 +85,11 @@ export default function BubbleSort() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* Header */}
       <h2 className="text-3xl font-bold mb-6">Bubble Sort</h2>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-2">
-
         <input
           type="number"
           value={inputValue}
@@ -128,7 +124,6 @@ export default function BubbleSort() {
         >
           Clear
         </button>
-
       </div>
 
       {/* Remaining slots */}
@@ -143,7 +138,6 @@ export default function BubbleSort() {
 
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
-
         {/* LEFT Visualization */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-full min-h-[320px] flex items-end gap-2">
           {array.length === 0 && (
@@ -169,36 +163,36 @@ export default function BubbleSort() {
 
         {/* RIGHT Panel */}
         <div className="border rounded-xl p-4 bg-white space-y-4 h-full flex flex-col">
-
-          {/* Legend */}
+          {/* Color Key */}
           <div>
-            <h3 className="font-semibold text-lg mb-2">Legend</h3>
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
-              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-blue-500 rounded"></div> Unsorted</div>
-              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-red-500 rounded"></div> Comparing</div>
-              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-green-500 rounded"></div> Sorted (bubbled to end)</div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-blue-500 rounded"></div> Unsorted
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-red-500 rounded"></div> Comparing
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-500 rounded"></div> Sorted
+                (bubbled to end)
+              </div>
             </div>
           </div>
 
           {/* Limits */}
           <div className="pt-4 border-t">
-            <h3 className="font-semibold text-lg mb-2">Limits</h3>
-            <div className="text-sm text-gray-600 space-y-1">
-              <div><strong>Maximum Values:</strong> 20</div>
-              <div><strong>Number Range:</strong> 0 – 200</div>
+            <h3 className="font-bold text-lg mb-2">Limits</h3>
+            <div className="text-sm space-y-1">
+              <div>
+                <strong>Maximum Values:</strong> 20
+              </div>
+              <div>
+                <strong>Number Range:</strong> 0 – 200
+              </div>
             </div>
           </div>
-
-          {/* Info */}
-          <div className="pt-4 border-t">
-            <h3 className="font-semibold text-lg mb-2">Info</h3>
-            <p className="text-sm text-gray-600">
-              Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order, "bubbling" the largest values to the end.
-            </p>
-          </div>
-
         </div>
-
       </div>
     </section>
   );

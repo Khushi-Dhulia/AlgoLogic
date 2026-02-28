@@ -5,20 +5,15 @@ import { useState } from "react";
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function PriorityQueue() {
-
   const [queue, setQueue] = useState([]);
   const [value, setValue] = useState("");
   const [priority, setPriority] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
   const [message, setMessage] = useState("");
 
-
-
   /* ---------- INSERT ---------- */
   const insertItem = async () => {
-
     if (!value || priority === "") {
-
       setMessage("❌ Enter both value and priority");
       return;
     }
@@ -40,13 +35,9 @@ export default function PriorityQueue() {
     setPriority("");
   };
 
-
-
   /* ---------- REMOVE ---------- */
   const removeItem = async () => {
-
     if (queue.length === 0) {
-
       setMessage("❌ Queue is Empty");
       return;
     }
@@ -66,31 +57,19 @@ export default function PriorityQueue() {
     setMessage(`Removed "${removed.value}"`);
   };
 
-
-
   /* ---------- RESET ---------- */
   const reset = () => {
-
     setQueue([]);
     setMessage("Queue cleared");
     setActiveIndex(null);
   };
 
-
-
   return (
-
     <section className="bg-white m-8 p-8 rounded-2xl border shadow space-y-6">
-
-      <h2 className="text-3xl font-bold">
-        Priority Queue
-      </h2>
-
-
+      <h2 className="text-3xl font-bold">Priority Queue</h2>
 
       {/* CONTROLS */}
       <div className="flex gap-4 flex-wrap">
-
         <input
           type="text"
           placeholder="Enter value"
@@ -121,127 +100,66 @@ export default function PriorityQueue() {
           Remove Highest
         </button>
 
-        <button
-          onClick={reset}
-          className="border px-5 py-2 rounded-lg"
-        >
+        <button onClick={reset} className="border px-5 py-2 rounded-lg">
           Clear
         </button>
-
       </div>
-
-
 
       {/* MAIN LAYOUT */}
       <div className="flex gap-8">
-
-
         {/* LEFT → VISUAL */}
         <div className="flex-1 border rounded-xl p-6 bg-gray-50 min-h-[200px] flex gap-4 flex-wrap">
-
           {queue.length === 0 && (
-            <div className="text-gray-400">
-              Queue is empty
-            </div>
+            <div className="text-gray-400">Queue is empty</div>
           )}
 
           {queue.map((item, index) => (
-
             <div
               key={index}
               className={`
                 w-24 h-20 border rounded-lg flex flex-col items-center justify-center font-semibold transition-all duration-300
 
-                ${activeIndex === index
-                  ? "bg-red-400 text-white scale-110"
-                  : "bg-yellow-200"
+                ${
+                  activeIndex === index
+                    ? "bg-red-400 text-white scale-110"
+                    : "bg-yellow-200"
                 }
               `}
             >
               <div>{item.value}</div>
-              <div className="text-xs">
-                P: {item.priority}
-              </div>
+              <div className="text-xs">P: {item.priority}</div>
             </div>
-
           ))}
-
         </div>
-
-
 
         {/* RIGHT → DETAILS PANEL */}
         <div className="w-64 border rounded-xl p-6 bg-white shadow space-y-4">
-
-
           {/* STATUS */}
           <div>
-
-            <div className="font-semibold text-gray-700">
-              Status
-            </div>
-
+            <div className="font-bold text-lg">Status</div>
             <div className="text-blue-600 text-sm mt-1 min-h-[40px]">
               {message || "Waiting for operation..."}
             </div>
-
           </div>
-
-
 
           {/* INFO */}
           <div className="space-y-2 text-sm">
-
             <div>📊 Size: {queue.length}</div>
-
             <div>
               Highest Priority: {queue.length > 0 ? queue[0].priority : "None"}
             </div>
-
-            <div>
-              Top Element: {queue.length > 0 ? queue[0].value : "None"}
-            </div>
-
-            <div>⚡ Insert: O(n log n)</div>
-            <div>⚡ Remove: O(n)</div>
-
+            <div>Top Element: {queue.length > 0 ? queue[0].value : "None"}</div>
           </div>
 
-
-
-          {/* LEGEND */}
+          {/* Color Key */}
           <div className="border-t pt-3 text-sm space-y-1">
-
-            <div className="font-medium">
-              Legend
-            </div>
-
+            <div className="font-bold text-lg">Color Key</div>
             <div>🟡 Normal</div>
             <div>🔴 Active (removing)</div>
             <div>🔺 Higher number = Higher priority</div>
-
           </div>
-
-
-
-          {/* INFO */}
-          <div className="border-t pt-3 text-sm text-gray-600 space-y-1">
-
-            <div>• Not FIFO</div>
-            <div>• Highest priority removed first</div>
-            <div>• Implemented using array sorting</div>
-            <div>• Can be optimized with Heap</div>
-            <div>• Used in scheduling systems</div>
-
-          </div>
-
         </div>
-
-
       </div>
-
     </section>
-
   );
-
 }

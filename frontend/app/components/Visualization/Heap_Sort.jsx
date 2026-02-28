@@ -5,7 +5,6 @@ import { useState } from "react";
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function HeapSort() {
-
   const [input, setInput] = useState("");
   const [array, setArray] = useState([]);
   const [active, setActive] = useState([]);
@@ -29,7 +28,6 @@ export default function HeapSort() {
 
   /* ---------- HEAPIFY ---------- */
   const heapify = async (arr, n, i) => {
-
     let largest = i;
     const left = 2 * i + 1;
     const right = 2 * i + 2;
@@ -38,20 +36,17 @@ export default function HeapSort() {
       setActive([i, left]);
       await sleep(600);
 
-      if (arr[left] > arr[largest])
-        largest = left;
+      if (arr[left] > arr[largest]) largest = left;
     }
 
     if (right < n) {
       setActive([largest, right]);
       await sleep(600);
 
-      if (arr[right] > arr[largest])
-        largest = right;
+      if (arr[right] > arr[largest]) largest = right;
     }
 
     if (largest !== i) {
-
       setSwapping([i, largest]);
       await sleep(600);
 
@@ -68,7 +63,6 @@ export default function HeapSort() {
 
   /* ---------- START SORT ---------- */
   const startSort = async () => {
-
     let arr = [...array];
     const n = arr.length;
 
@@ -79,7 +73,6 @@ export default function HeapSort() {
 
     // Extract elements
     for (let i = n - 1; i > 0; i--) {
-
       setSwapping([0, i]);
       await sleep(600);
 
@@ -98,15 +91,11 @@ export default function HeapSort() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* HEADER */}
-      <h2 className="text-3xl font-bold mb-6">
-        Heap Sort
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Heap Sort</h2>
 
       {/* CONTROLS */}
       <div className="flex flex-wrap gap-3 mb-6">
-
         <input
           type="number"
           value={input}
@@ -126,7 +115,7 @@ export default function HeapSort() {
           onClick={startSort}
           className="bg-blue-500 text-white px-5 py-2 rounded-lg"
         >
-          Start Heap Sort
+        Sort
         </button>
 
         <button
@@ -135,15 +124,12 @@ export default function HeapSort() {
         >
           Reset
         </button>
-
       </div>
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
         {/* LEFT — VISUALIZATION */}
         <div className="lg:col-span-3 border rounded-xl p-6 bg-gray-50 min-h-[120px] flex items-center gap-3 flex-wrap">
-
           {array.length === 0 && (
             <div className="text-gray-400 text-sm">
               Add values to begin Heap Sort
@@ -151,17 +137,11 @@ export default function HeapSort() {
           )}
 
           {array.map((val, index) => {
-
             let bg = "bg-yellow-100";
 
-            if (sortedIndex.includes(index))
-              bg = "bg-green-400 text-white";
-
-            else if (swapping.includes(index))
-              bg = "bg-red-400 text-white";
-
-            else if (active.includes(index))
-              bg = "bg-yellow-400";
+            if (sortedIndex.includes(index)) bg = "bg-green-400 text-white";
+            else if (swapping.includes(index)) bg = "bg-red-400 text-white";
+            else if (active.includes(index)) bg = "bg-yellow-400";
 
             return (
               <div
@@ -172,21 +152,15 @@ export default function HeapSort() {
               </div>
             );
           })}
-
         </div>
 
         {/* RIGHT — SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-
-          {/* LEGEND */}
+          {/* Color Key */}
           <div>
-
-            <h3 className="font-semibold text-lg mb-2">
-              Legend
-            </h3>
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
 
             <div className="text-sm space-y-2">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
                 Unsorted Element
@@ -206,26 +180,7 @@ export default function HeapSort() {
                 <div className="w-4 h-4 bg-green-400 border rounded"></div>
                 Sorted Element
               </div>
-
             </div>
-
-          </div>
-
-          {/* INFO */}
-          <div className="pt-4 border-t">
-
-            <h3 className="font-semibold text-lg mb-2">
-              Info
-            </h3>
-
-            <p className="text-sm text-gray-600">
-              Heap Sort is a comparison-based sorting algorithm that uses
-              a Binary Heap data structure. It first builds a Max Heap,
-              then repeatedly extracts the largest element and places it
-              at the end. It has O(n log n) time complexity and does not
-              require extra memory.
-            </p>
-
           </div>
         </div>
       </div>

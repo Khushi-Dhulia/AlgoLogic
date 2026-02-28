@@ -5,7 +5,6 @@ import { useState } from "react";
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function InsertionSort() {
-
   const [array, setArray] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
@@ -20,7 +19,6 @@ export default function InsertionSort() {
 
   // ADD VALUE WITH VALIDATION
   const addValue = () => {
-
     setError("");
 
     if (!inputValue) return;
@@ -67,7 +65,6 @@ export default function InsertionSort() {
     const arr = [...array];
 
     for (let i = 1; i < arr.length; i++) {
-
       let key = arr[i];
       let j = i - 1;
 
@@ -75,7 +72,6 @@ export default function InsertionSort() {
       await sleep(speed);
 
       while (j >= 0 && arr[j] > key) {
-
         setCompareIndex(j);
         await sleep(speed);
 
@@ -103,15 +99,11 @@ export default function InsertionSort() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* Header */}
-      <h2 className="text-3xl font-bold mb-6">
-        Insertion Sort
-      </h2>
+      <h2 className="text-3xl font-bold mb-6">Insertion Sort</h2>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-2">
-
         <input
           type="number"
           value={inputValue}
@@ -146,7 +138,6 @@ export default function InsertionSort() {
         >
           Clear
         </button>
-
       </div>
 
       {/* Remaining slots */}
@@ -156,25 +147,18 @@ export default function InsertionSort() {
 
       {/* Error */}
       {error && (
-        <div className="text-red-500 text-sm mb-4 font-medium">
-          {error}
-        </div>
+        <div className="text-red-500 text-sm mb-4 font-medium">{error}</div>
       )}
 
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
-
         {/* LEFT Visualization */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-full min-h-[320px] flex items-end gap-2">
-
           {array.length === 0 && (
-            <div className="text-gray-400 text-sm">
-              Add values to begin...
-            </div>
+            <div className="text-gray-400 text-sm">Add values to begin...</div>
           )}
 
           {array.map((value, index) => {
-
             let color = "bg-blue-500";
 
             if (index <= sortedIndex) color = "bg-green-500";
@@ -193,18 +177,14 @@ export default function InsertionSort() {
               </div>
             );
           })}
-
         </div>
 
         {/* RIGHT Panel */}
         <div className="border rounded-xl p-4 bg-white space-y-4 h-full flex flex-col">
-
-          {/* Legend */}
+          {/* Color Key */}
           <div>
-            <h3 className="font-semibold text-lg mb-2">Legend</h3>
-
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
-
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-blue-500 rounded"></div>
                 Unsorted
@@ -224,14 +204,13 @@ export default function InsertionSort() {
                 <div className="w-4 h-4 bg-red-500 rounded"></div>
                 Comparing
               </div>
-
             </div>
           </div>
 
           {/* Limits */}
           <div className="pt-4 border-t">
-            <h3 className="font-semibold text-lg mb-2">Limits</h3>
-            <div className="text-sm text-gray-600 space-y-1">
+            <h3 className="font-bold text-lg mb-2">Limits</h3>
+            <div className="text-sm space-y-1">
               <div>
                 <strong>Maximum Values:</strong> 20
               </div>
@@ -239,16 +218,6 @@ export default function InsertionSort() {
                 <strong>Number Range:</strong> 0 – 200
               </div>
             </div>
-          </div>
-
-          {/* Info */}
-          <div className="pt-4 border-t">
-            <h3 className="font-semibold text-lg mb-2">Info</h3>
-            <p className="text-sm text-gray-600">
-              Insertion Sort builds the sorted array one element at a time.
-              It takes each element and inserts it into its correct position
-              in the already sorted portion.
-            </p>
           </div>
         </div>
       </div>

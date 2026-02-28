@@ -95,13 +95,11 @@ export default function BucketSort() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow">
-
       {/* Header */}
       <h2 className="text-3xl font-bold mb-6">Bucket Sort</h2>
 
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-2">
-
         <input
           type="number"
           value={inputValue}
@@ -136,7 +134,6 @@ export default function BucketSort() {
         >
           Clear
         </button>
-
       </div>
 
       {/* Remaining slots */}
@@ -151,14 +148,14 @@ export default function BucketSort() {
 
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
-
         {/* LEFT — Original Array + Buckets */}
         <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 flex flex-col gap-4 h-full min-h-[320px]">
-
           {/* Original Array */}
           <div className="flex items-end gap-2 h-40 border rounded-lg p-4 bg-gray-100">
             {array.length === 0 && (
-              <div className="text-gray-400 text-sm">Add values to begin...</div>
+              <div className="text-gray-400 text-sm">
+                Add values to begin...
+              </div>
             )}
 
             {array.map((value, index) => (
@@ -194,41 +191,42 @@ export default function BucketSort() {
               ))}
             </div>
           )}
-
         </div>
 
         {/* RIGHT — Side Panel */}
         <div className="border rounded-xl p-4 bg-white space-y-4 flex flex-col h-full">
-
-          {/* Legend */}
+          {/* Color Key */}
           <div>
-            <h3 className="font-semibold text-lg mb-2">Legend</h3>
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
-              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-blue-500 rounded"></div> Original Array</div>
-              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-red-500 rounded"></div> Currently distributing</div>
-              <div className="flex items-center gap-2"><div className="w-4 h-4 bg-green-500 rounded"></div> Inside bucket</div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-blue-500 rounded"></div> Original
+                Array
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-red-500 rounded"></div> Currently
+                distributing
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-500 rounded"></div> Inside
+                bucket
+              </div>
             </div>
           </div>
 
           {/* Limits */}
           <div className="pt-4 border-t">
-            <h3 className="font-semibold text-lg mb-2">Limits</h3>
-            <div className="text-sm text-gray-600 space-y-1">
-              <div><strong>Maximum Values:</strong> 20</div>
-              <div><strong>Number Range:</strong> 0 – 200</div>
+            <h3 className="font-bold text-lg mb-2">Limits</h3>
+            <div className="text-sm space-y-1">
+              <div>
+                <strong>Maximum Values:</strong> 20
+              </div>
+              <div>
+                <strong>Number Range:</strong> 0 – 200
+              </div>
             </div>
           </div>
-
-          {/* Info */}
-          <div className="pt-4 border-t">
-            <h3 className="font-semibold text-lg mb-2">Info</h3>
-            <p className="text-sm text-gray-600">
-              Bucket Sort distributes elements into buckets, sorts each bucket, and then merges them into a final sorted array.
-            </p>
-          </div>
-
         </div>
-
       </div>
     </section>
   );
