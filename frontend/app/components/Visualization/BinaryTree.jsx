@@ -140,25 +140,9 @@ export default function BinaryTree() {
 
         {/* RIGHT — SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-          {/* COLOR KEY */}
+                    {/*status */}
           <div>
-            <h3 className="font-bold text-lg mb-2">Color Key</h3>
-
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-100 border rounded-full"></div>
-                Tree Node
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-1 bg-gray-400"></div>
-                Parent → Child Link
-              </div>
-            </div>
-          </div>
-          {/* TREE STATS */}
-          <div className="pt-4 border-t">
-            <h3 className="font-bold text-lg mb-2">Tree Status</h3>
+            <h3 className="font-bold text-lg mb-2">Binary Tree Status</h3>
             <div className="text-sm space-y-1">
               <div>
                 <span className="font-semibold">Nodes:</span> {totalNodes}
@@ -172,6 +156,20 @@ export default function BinaryTree() {
               <div>
                 <span className="font-semibold">Status:</span>{" "}
                 {root ? "Active" : "Empty"}
+              </div>
+            </div>
+          </div>
+          {/* COLOR KEY */}
+          <div className="pt-4 border-t">
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-yellow-100 border rounded-full"></div>
+                Tree Node
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-1 bg-gray-400"></div>
+                Parent → Child Link
               </div>
             </div>
           </div>

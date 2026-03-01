@@ -173,24 +173,9 @@ export default function Array() {
         </div>
         {/* RIGHT SIDE PANEL */}
         <div className="border rounded-xl p-4 bg-white space-y-4">
-          {/* COLOR KEY */}
-          <div>
-            <h3 className="font-bold text-lg mb-2">Color Key</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex gap-2 items-center">
-                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
-                Array Element
-              </div>
-
-              <div className="flex gap-2 items-center">
-                <div className="w-4 h-4 bg-white border rounded"></div>
-                Empty Space
-              </div>
-            </div>
-          </div>
-          {/* STAUTS */}
-          <div className="pt-2 border-t">
-            <h3 className="font-bold text-lg mb-2">Status</h3>
+          {/* STATUS */}
+          <div >
+            <h3 className="font-bold text-lg mb-2">Array Status</h3>
             <div className="text-sm space-y-1">
               <div>
                 <span className="font-semibold">Size: </span>
@@ -210,6 +195,21 @@ export default function Array() {
               <div>
                 <span className="font-semibold">Current Operation:</span>{" "}
                 {operation}
+              </div>
+            </div>
+          </div>
+          {/* COLOR KEY */}
+          <div className="pt-2 border-t">
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex gap-2 items-center">
+                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
+                Array Element
+              </div>
+
+              <div className="flex gap-2 items-center">
+                <div className="w-4 h-4 bg-white border rounded"></div>
+                Empty Space
               </div>
             </div>
           </div>

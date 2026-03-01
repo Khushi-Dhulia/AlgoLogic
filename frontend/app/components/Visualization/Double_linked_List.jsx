@@ -9,37 +9,59 @@ export default function DoublyLinkedList() {
   const [value, setValue] = useState("");
   const [highlight, setHighlight] = useState(null);
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState({
+    operation: "None",
+    value: "-",
+    position: "-",
+    length: 0,
+    head: "-",
+    tail: "-",
+  });
 
   /* ---------- INSERT END ---------- */
   const insertEnd = async () => {
     if (value === "") return;
 
-    setMessage("");
-
     const newList = [...list, Number(value)];
     setList(newList);
 
+    setStatus({
+      operation: "Insert End",
+      value,
+      position: "Tail",
+      length: newList.length,
+      head: newList[0],
+      tail: newList[newList.length - 1],
+    });
+
     setHighlight(newList.length - 1);
     await sleep(500);
-
     setHighlight(null);
     setValue("");
+    setMessage("");
   };
 
   /* ---------- INSERT START ---------- */
   const insertStart = async () => {
     if (value === "") return;
 
-    setMessage("");
-
     const newList = [Number(value), ...list];
     setList(newList);
 
+    setStatus({
+      operation: "Insert Start",
+      value,
+      position: "Head",
+      length: newList.length,
+      head: newList[0],
+      tail: newList[newList.length - 1],
+    });
+
     setHighlight(0);
     await sleep(500);
-
     setHighlight(null);
     setValue("");
+    setMessage("");
   };
 
   /* ---------- DELETE ---------- */
@@ -50,10 +72,15 @@ export default function DoublyLinkedList() {
 
     if (index === -1) {
       setMessage("❌ Value not found");
+
+      setStatus({
+        ...status,
+        operation: "Delete",
+        value,
+      });
+
       return;
     }
-
-    setMessage("");
 
     setHighlight(index);
     await sleep(500);
@@ -61,8 +88,23 @@ export default function DoublyLinkedList() {
     const newList = list.filter((_, i) => i !== index);
     setList(newList);
 
+    setStatus({
+      operation: "Delete",
+      value,
+      position:
+        index === 0
+          ? "Head"
+          : index === list.length - 1
+          ? "Tail"
+          : `Index ${index}`,
+      length: newList.length,
+      head: newList[0] ?? "-",
+      tail: newList[newList.length - 1] ?? "-",
+    });
+
     setHighlight(null);
     setValue("");
+    setMessage("");
   };
 
   /* ---------- RESET ---------- */
@@ -70,6 +112,15 @@ export default function DoublyLinkedList() {
     setList([]);
     setHighlight(null);
     setMessage("");
+
+    setStatus({
+      operation: "Reset",
+      value: "-",
+      position: "-",
+      length: 0,
+      head: "-",
+      tail: "-",
+    });
   };
 
   return (
@@ -125,12 +176,10 @@ export default function DoublyLinkedList() {
 
           {list.map((val, index) => (
             <div key={index} className="flex items-center gap-3">
-              {/* LEFT NULL */}
               {index === 0 && (
                 <span className="text-gray-400 text-sm">null ⇄</span>
               )}
 
-              {/* NODE */}
               <div
                 className={`px-5 py-3 rounded-lg border font-bold min-w-[60px] text-center transition-all
                   ${
@@ -142,12 +191,10 @@ export default function DoublyLinkedList() {
                 {val}
               </div>
 
-              {/* ARROW */}
               {index !== list.length - 1 && (
                 <span className="font-bold text-lg">⇄</span>
               )}
 
-              {/* RIGHT NULL */}
               {index === list.length - 1 && (
                 <span className="text-gray-400 text-sm">⇄ null</span>
               )}
@@ -155,11 +202,50 @@ export default function DoublyLinkedList() {
           ))}
         </div>
 
-        {/* RIGHT — SIDE PANEL */}
-        <div className="border rounded-xl p-4 bg-white space-y-4">
-          {/* Color Key */}
+        {/* RIGHT PANEL */}
+        <div className="border rounded-xl p-4 bg-white space-y-6">
+          {/* DOUBLY LINKED LIST STATUS */}
           <div>
-            <h3 className="font-semibold text-lg mb-2">Color Key</h3>
+            <h3 className="font-bold text-lg mb-2 text-black">
+              Doubly Linked List Status
+            </h3>
+
+            <div className="text-sm space-y-1 text-black">
+              <div>
+                <span className="font-semibold">Operation:</span>{" "}
+                <span>{status.operation}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Value:</span>{" "}
+                <span>{status.value}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Position:</span>{" "}
+                <span>{status.position}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">List Length:</span>{" "}
+                <span>{status.length}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Head:</span>{" "}
+                <span>{status.head}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Tail:</span>{" "}
+                <span>{status.tail}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* COLOR KEY */}
+          <div className="pt-2 border-t">
+            <h3 className="font-bold text-lg mb-2">Color Key</h3>
             <div className="text-sm space-y-2">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
@@ -182,7 +268,6 @@ export default function DoublyLinkedList() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -62,7 +62,7 @@ export default function LinearSearch() {
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow space-y-6">
-      <h2 className="text-3xl font-bold">Linear Search Visualizer</h2>
+      <h2 className="text-3xl font-bold">Linear Search</h2>
 
       {/* INPUTS */}
       <div className="flex gap-4 flex-wrap">
@@ -143,18 +143,13 @@ export default function LinearSearch() {
         <div className="w-64 border rounded-xl p-6 bg-white shadow space-y-4">
           {/* STATUS */}
           <div>
-            <div className="font-bold text-lg">Status</div>
-            <div className="text-blue-600 text-sm mt-1 min-h-[40px]">
+            <div className="font-bold text-lg">Linear Search Status</div>
+            <div className="text-sm"><span className="font-semibold">Operation: </span>
               {message || "Waiting to start..."}
-            </div>
-          </div>
-
-          {/* POINTER INFO */}
-          <div className="space-y-2 text-sm">
-            <div>🔍 Current Index: {activeIndex ?? "-"}</div>
-            <div>✅ Found Index: {foundIndex ?? "-"}</div>
-            <div>📊 Array Size: {array.length}</div>
-          </div>
+            <div><span className="font-semibold">Current Index: </span>{activeIndex ?? "-"}</div>
+            <div><span className="font-semibold">Found Index: </span>{foundIndex ?? "-"}</div>
+            <div><span className="font-semibold">Array Size: </span>{array.length}</div>
+          </div></div>
 
           {/* Color Key */}
           <div className="border-t pt-3 text-sm space-y-1">

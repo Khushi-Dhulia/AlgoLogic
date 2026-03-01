@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+const MAX_SIZE = 15;
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default function PriorityQueue() {
@@ -9,73 +10,101 @@ export default function PriorityQueue() {
   const [value, setValue] = useState("");
   const [priority, setPriority] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
-  const [message, setMessage] = useState("");
 
-  /* ---------- INSERT ---------- */
-  const insertItem = async () => {
-    if (!value || priority === "") {
-      setMessage("❌ Enter both value and priority");
+  const [status, setStatus] = useState({
+    operation: "Waiting",
+    value: "-",
+    front: "null",
+    rear: "null",
+    size: 0,
+    isEmpty: true,
+  });
+
+  /* ---------- ENQUEUE ---------- */
+  const enqueue = async () => {
+    const num = Number(value);
+    const pr = Number(priority);
+
+    if (
+      value === "" ||
+      priority === "" ||
+      num < 0 ||
+      num > 200 ||
+      queue.length >= MAX_SIZE
+    )
       return;
-    }
 
-    const newItem = {
-      value,
-      priority: Number(priority),
-    };
-
+    const newItem = { value: num, priority: pr };
     const newQueue = [...queue, newItem];
 
-    // Sort descending (higher priority first)
     newQueue.sort((a, b) => b.priority - a.priority);
 
     setQueue(newQueue);
-    setMessage(`✅ "${value}" inserted with priority ${priority}`);
+
+    setStatus({
+      operation: "enqueue",
+      value: `${num} (P:${pr})`,
+      front: newQueue[0].value,
+      rear: newQueue[newQueue.length - 1].value,
+      size: newQueue.length,
+      isEmpty: false,
+    });
 
     setValue("");
     setPriority("");
   };
 
-  /* ---------- REMOVE ---------- */
-  const removeItem = async () => {
-    if (queue.length === 0) {
-      setMessage("❌ Queue is Empty");
-      return;
-    }
+  /* ---------- DEQUEUE ---------- */
+  const dequeue = async () => {
+    if (queue.length === 0) return;
 
     setActiveIndex(0);
-    setMessage("Removing highest priority item...");
-
-    await sleep(500);
+    await sleep(400);
 
     const removed = queue[0];
-    const newQueue = [...queue];
-    newQueue.shift();
+    const newQueue = queue.slice(1);
 
     setQueue(newQueue);
-    setActiveIndex(null);
 
-    setMessage(`Removed "${removed.value}"`);
+    setStatus({
+      operation: "dequeue",
+      value: `${removed.value} (P:${removed.priority})`,
+      front: newQueue[0]?.value || "null",
+      rear: newQueue[newQueue.length - 1]?.value || "null",
+      size: newQueue.length,
+      isEmpty: newQueue.length === 0,
+    });
+
+    setActiveIndex(null);
   };
 
-  /* ---------- RESET ---------- */
   const reset = () => {
     setQueue([]);
-    setMessage("Queue cleared");
     setActiveIndex(null);
+
+    setStatus({
+      operation: "Waiting",
+      value: "-",
+      front: "null",
+      rear: "null",
+      size: 0,
+      isEmpty: true,
+    });
   };
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow space-y-6">
       <h2 className="text-3xl font-bold">Priority Queue</h2>
 
-      {/* CONTROLS */}
       <div className="flex gap-4 flex-wrap">
         <input
-          type="text"
-          placeholder="Enter value"
+          type="number"
+          min="0"
+          max="200"
+          placeholder="Enter Number"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="border px-4 py-2 rounded-lg"
+          className="border px-4 py-2 rounded-lg w-38"
         />
 
         <input
@@ -87,27 +116,26 @@ export default function PriorityQueue() {
         />
 
         <button
-          onClick={insertItem}
+          onClick={enqueue}
           className="bg-yellow-400 px-5 py-2 rounded-lg font-semibold"
         >
-          Insert
+          Enqueue
         </button>
 
         <button
-          onClick={removeItem}
+          onClick={dequeue}
           className="bg-red-500 text-white px-5 py-2 rounded-lg font-semibold"
         >
-          Remove Highest
+          Dequeue
         </button>
 
         <button onClick={reset} className="border px-5 py-2 rounded-lg">
-          Clear
+          Reset
         </button>
       </div>
 
-      {/* MAIN LAYOUT */}
       <div className="flex gap-8">
-        {/* LEFT → VISUAL */}
+        {/* LEFT */}
         <div className="flex-1 border rounded-xl p-6 bg-gray-50 min-h-[200px] flex gap-4 flex-wrap">
           {queue.length === 0 && (
             <div className="text-gray-400">Queue is empty</div>
@@ -116,15 +144,12 @@ export default function PriorityQueue() {
           {queue.map((item, index) => (
             <div
               key={index}
-              className={`
-                w-24 h-20 border rounded-lg flex flex-col items-center justify-center font-semibold transition-all duration-300
-
+              className={`w-24 h-20 border rounded-lg flex flex-col items-center justify-center font-semibold transition-all duration-300
                 ${
                   activeIndex === index
                     ? "bg-red-400 text-white scale-110"
                     : "bg-yellow-200"
-                }
-              `}
+                }`}
             >
               <div>{item.value}</div>
               <div className="text-xs">P: {item.priority}</div>
@@ -132,30 +157,35 @@ export default function PriorityQueue() {
           ))}
         </div>
 
-        {/* RIGHT → DETAILS PANEL */}
-        <div className="w-64 border rounded-xl p-6 bg-white shadow space-y-4">
+        {/* RIGHT PANEL */}
+        <div className="w-64 border rounded-xl p-6 bg-white shadow space-y-6">
           {/* STATUS */}
           <div>
-            <div className="font-bold text-lg">Status</div>
-            <div className="text-blue-600 text-sm mt-1 min-h-[40px]">
-              {message || "Waiting for operation..."}
+            <h3 className="font-bold text-lg mb-2 text-black">
+            Priority Queue Status
+            </h3>
+            <div className="text-sm space-y-1 text-black">
+              <div><span className="font-semibold">Operation:</span> {status.operation}</div>
+              <div><span className="font-semibold">Value:</span> {status.value}</div>
+              <div><span className="font-semibold">Front:</span> {status.front}</div>
+              <div><span className="font-semibold">Rear:</span> {status.rear}</div>
+              <div><span className="font-semibold">Size:</span> {status.size}</div>
+              <div><span className="font-semibold">Is Empty:</span> {status.isEmpty ? "Yes" : "No"}</div>
             </div>
           </div>
 
-          {/* INFO */}
-          <div className="space-y-2 text-sm">
-            <div>📊 Size: {queue.length}</div>
-            <div>
-              Highest Priority: {queue.length > 0 ? queue[0].priority : "None"}
-            </div>
-            <div>Top Element: {queue.length > 0 ? queue[0].value : "None"}</div>
+          {/* LIMITS */}
+          <div className="border-t pt-4 text-sm space-y-1">
+            <div className="font-bold text-lg">Limits</div>
+            <div><span className="font-bold">Maximum Values:</span> 15</div>
+            <div><span className="font-bold">Number Range:</span> 0 – 200</div>
           </div>
 
-          {/* Color Key */}
-          <div className="border-t pt-3 text-sm space-y-1">
+          {/* COLOR KEY */}
+          <div className="border-t pt-4 text-sm space-y-1">
             <div className="font-bold text-lg">Color Key</div>
             <div>🟡 Normal</div>
-            <div>🔴 Active (removing)</div>
+            <div>🔴 Active</div>
             <div>🔺 Higher number = Higher priority</div>
           </div>
         </div>

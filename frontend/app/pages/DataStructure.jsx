@@ -5,7 +5,7 @@ import BinaryTree from "../components/Visualization/BinaryTree";
 import HashTable from "../components/Visualization/HashTable";
 import HeapSort from "../components/Visualization/Heap_Sort";
 import SingleLinkedList from "../components/Visualization/Single_Linked_List";
-import DoublyLinkedList from "../components/Visualization/Double_linked_List";
+import DoublyLinkedList from "../components/Visualization/Double_Linked_List";
 import CircularLinkedList from "../components/Visualization/Circular_Linked_List";
 import SingleQueue from "../components/Visualization/Single_queue";
 import CircularQueue from "../components/Visualization/Circular_queue";

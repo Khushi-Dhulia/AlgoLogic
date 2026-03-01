@@ -10,20 +10,47 @@ export default function HeapSort() {
   const [active, setActive] = useState([]);
   const [swapping, setSwapping] = useState([]);
   const [sortedIndex, setSortedIndex] = useState([]);
+  const [error, setError] = useState("");
+  const [isRunning, setIsRunning] = useState(false);
+
+  const maxValue = Math.max(...array, 1);
+  const speed = 400;
 
   /* ---------- ADD VALUE ---------- */
   const addValue = () => {
+    setError("");
+
     if (!input) return;
-    setArray([...array, Number(input)]);
+
+    if (array.length >= 20) {
+      setError("Maximum 20 values allowed");
+      return;
+    }
+
+    const num = Number(input);
+
+    if (isNaN(num) || num < 0) {
+      setError("Enter a valid non-negative number");
+      return;
+    }
+
+    if (num > 200) {
+      setError("Maximum value allowed is 200");
+      return;
+    }
+
+    setArray([...array, num]);
     setInput("");
   };
 
   /* ---------- RESET ---------- */
   const reset = () => {
+    if (isRunning) return;
     setArray([]);
     setSortedIndex([]);
     setActive([]);
     setSwapping([]);
+    setError("");
   };
 
   /* ---------- HEAPIFY ---------- */
@@ -34,21 +61,21 @@ export default function HeapSort() {
 
     if (left < n) {
       setActive([i, left]);
-      await sleep(600);
+      await sleep(speed);
 
       if (arr[left] > arr[largest]) largest = left;
     }
 
     if (right < n) {
       setActive([largest, right]);
-      await sleep(600);
+      await sleep(speed);
 
       if (arr[right] > arr[largest]) largest = right;
     }
 
     if (largest !== i) {
       setSwapping([i, largest]);
-      await sleep(600);
+      await sleep(speed);
 
       [arr[i], arr[largest]] = [arr[largest], arr[i]];
       setArray([...arr]);
@@ -63,18 +90,20 @@ export default function HeapSort() {
 
   /* ---------- START SORT ---------- */
   const startSort = async () => {
+    if (isRunning || array.length === 0) return;
+
+    setIsRunning(true);
+
     let arr = [...array];
     const n = arr.length;
 
-    // Build Max Heap
     for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
       await heapify(arr, n, i);
     }
 
-    // Extract elements
     for (let i = n - 1; i > 0; i--) {
       setSwapping([0, i]);
-      await sleep(600);
+      await sleep(speed);
 
       [arr[0], arr[i]] = [arr[i], arr[0]];
       setArray([...arr]);
@@ -87,6 +116,7 @@ export default function HeapSort() {
     }
 
     setSortedIndex((prev) => [...prev, 0]);
+    setIsRunning(false);
   };
 
   return (
@@ -95,41 +125,56 @@ export default function HeapSort() {
       <h2 className="text-3xl font-bold mb-6">Heap Sort</h2>
 
       {/* CONTROLS */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      <div className="flex flex-wrap gap-3 mb-2">
         <input
           type="number"
           value={input}
+          disabled={isRunning}
+          min="0"
+          max="200"
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter number"
-          className="border px-3 py-2 rounded-lg w-40"
+          placeholder="Enter number (0–200)"
+          className="border px-3 py-2 rounded-lg w-48"
         />
 
         <button
           onClick={addValue}
-          className="bg-yellow-400 px-5 py-2 rounded-lg font-semibold"
+          disabled={isRunning || array.length >= 20}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg disabled:opacity-50"
         >
           Add
         </button>
 
         <button
           onClick={startSort}
-          className="bg-blue-500 text-white px-5 py-2 rounded-lg"
+          disabled={isRunning}
+          className="bg-yellow-400 px-5 py-2 rounded-lg font-semibold disabled:opacity-50"
         >
-        Sort
+          Sort
         </button>
 
         <button
           onClick={reset}
-          className="border px-5 py-2 rounded-lg text-gray-600"
+          disabled={isRunning}
+          className="border px-5 py-2 rounded-lg"
         >
-          Reset
+          Clear
         </button>
       </div>
 
+      {/* COUNT */}
+      <div className="text-sm text-gray-500 mb-1">
+        {array.length}/20 values used
+      </div>
+
+      {error && (
+        <div className="text-red-500 text-sm mb-4 font-medium">{error}</div>
+      )}
+
       {/* MAIN GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* LEFT — VISUALIZATION */}
-        <div className="lg:col-span-3 border rounded-xl p-6 bg-gray-50 min-h-[120px] flex items-center gap-3 flex-wrap">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+        {/* LEFT PANEL */}
+        <div className="lg:col-span-3 border rounded-xl p-4 bg-gray-50 h-full min-h-[320px] flex items-end gap-2">
           {array.length === 0 && (
             <div className="text-gray-400 text-sm">
               Add values to begin Heap Sort
@@ -137,16 +182,20 @@ export default function HeapSort() {
           )}
 
           {array.map((val, index) => {
-            let bg = "bg-yellow-100";
+            let bg = "bg-blue-500";
 
-            if (sortedIndex.includes(index)) bg = "bg-green-400 text-white";
-            else if (swapping.includes(index)) bg = "bg-red-400 text-white";
+            if (sortedIndex.includes(index)) bg = "bg-green-500";
+            else if (swapping.includes(index)) bg = "bg-red-500";
             else if (active.includes(index)) bg = "bg-yellow-400";
 
             return (
               <div
                 key={index}
-                className={`w-14 h-14 flex items-center justify-center rounded-lg font-bold transition-all duration-300 ${bg}`}
+                className={`w-10 flex items-end justify-center text-xs font-bold text-white transition-all duration-300 ${bg}`}
+                style={{
+                  height: `${(val / maxValue) * 100}%`,
+                  minHeight: "20px",
+                }}
               >
                 {val}
               </div>
@@ -154,31 +203,45 @@ export default function HeapSort() {
           })}
         </div>
 
-        {/* RIGHT — SIDE PANEL */}
-        <div className="border rounded-xl p-4 bg-white space-y-4">
+        {/* RIGHT PANEL */}
+        <div className="border rounded-xl p-4 bg-white space-y-4 h-full flex flex-col">
           {/* Color Key */}
           <div>
-            <h3 className="font-bold text-lg mb-2">Color Key</h3>
+            <h3 className="font-bold text-lg mb-2">Color key</h3>
 
             <div className="text-sm space-y-2">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
+                <div className="w-4 h-4 bg-blue-500 rounded"></div>
                 Unsorted Element
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-400 border rounded"></div>
-                Comparing Elements
+                <div className="w-4 h-4 bg-yellow-400 rounded"></div>
+                Comparing
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-red-400 border rounded"></div>
-                Swapping Elements
+                <div className="w-4 h-4 bg-red-500 rounded"></div>
+                Swapping
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-400 border rounded"></div>
-                Sorted Element
+                <div className="w-4 h-4 bg-green-500 rounded"></div>
+                Sorted
+              </div>
+            </div>
+          </div>
+
+          {/* Limits */}
+          <div className="pt-4 border-t">
+            <h3 className="font-bold text-lg mb-2">Limits</h3>
+
+            <div className="text-sm space-y-1">
+              <div>
+                <strong>Maximum Values:</strong> 20
+              </div>
+              <div>
+                <strong>Number Range:</strong> 0 – 200
               </div>
             </div>
           </div>

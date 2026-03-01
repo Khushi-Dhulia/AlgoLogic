@@ -9,15 +9,32 @@ export default function SingleLinkedList() {
   const [value, setValue] = useState("");
   const [highlight, setHighlight] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [message, setMessage] = useState("");
+
+  /* ✅ Structured Status */
+  const [status, setStatus] = useState({
+    operation: "None",
+    value: "-",
+    position: "-",
+    length: 0,
+    head: "-",
+    tail: "-",
+  });
 
   /* ---------- INSERT AT END ---------- */
   const insertEnd = async () => {
     if (value === "") return;
 
-    setMessage("Inserted at end");
     const newList = [...list, Number(value)];
     setList(newList);
+
+    setStatus({
+      operation: "Insert End",
+      value,
+      position: "Tail",
+      length: newList.length,
+      head: newList[0],
+      tail: newList[newList.length - 1],
+    });
 
     setHighlight(newList.length - 1);
     await sleep(500);
@@ -29,9 +46,17 @@ export default function SingleLinkedList() {
   const insertStart = async () => {
     if (value === "") return;
 
-    setMessage("Inserted at start");
     const newList = [Number(value), ...list];
     setList(newList);
+
+    setStatus({
+      operation: "Insert Start",
+      value,
+      position: "Head",
+      length: newList.length,
+      head: newList[0],
+      tail: newList[newList.length - 1],
+    });
 
     setHighlight(0);
     await sleep(500);
@@ -46,17 +71,33 @@ export default function SingleLinkedList() {
     let index = list.indexOf(Number(value));
 
     if (index === -1) {
-      setMessage("❌ Value not found");
+      setStatus({
+        ...status,
+        operation: "Delete",
+        value,
+      });
       return;
     }
-
-    setMessage(`Deleting ${value}`);
 
     setHighlight(index);
     await sleep(500);
 
     const newList = list.filter((v) => v !== Number(value));
     setList(newList);
+
+    setStatus({
+      operation: "Delete",
+      value,
+      position:
+        index === 0
+          ? "Head"
+          : index === list.length - 1
+          ? "Tail"
+          : `Index ${index}`,
+      length: newList.length,
+      head: newList[0] ?? "-",
+      tail: newList[newList.length - 1] ?? "-",
+    });
 
     setHighlight(null);
     setSelectedIndex(null);
@@ -66,14 +107,21 @@ export default function SingleLinkedList() {
   /* ---------- RESET ---------- */
   const reset = () => {
     setList([]);
-    setMessage("List reset");
     setHighlight(null);
     setSelectedIndex(null);
+
+    setStatus({
+      operation: "Reset",
+      value: "-",
+      position: "-",
+      length: 0,
+      head: "-",
+      tail: "-",
+    });
   };
 
   return (
     <section className="bg-white mx-8 mt-6 p-10 rounded-2xl border shadow-sm space-y-6">
-      {/* HEADER */}
       <div>
         <h2 className="text-3xl font-bold">Singly Linked List</h2>
         <p className="text-sm text-gray-500">Node → Data + Pointer</p>
@@ -115,9 +163,8 @@ export default function SingleLinkedList() {
         </button>
       </div>
 
-      {/* MAIN GRID LAYOUT */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* LEFT → VISUALIZATION */}
+        {/* LEFT VISUAL */}
         <div className="lg:col-span-3 border rounded-xl p-6 bg-gray-50 min-h-[200px] flex items-center flex-wrap gap-4">
           {list.length === 0 && (
             <span className="text-gray-400">List is empty</span>
@@ -125,7 +172,6 @@ export default function SingleLinkedList() {
 
           {list.map((val, index) => (
             <div key={index} className="flex items-center gap-3">
-              {/* NODE */}
               <div
                 onClick={() => setSelectedIndex(index)}
                 className={`px-4 py-2 rounded-md font-bold cursor-pointer transition-all
@@ -133,32 +179,62 @@ export default function SingleLinkedList() {
                     highlight === index
                       ? "bg-yellow-300 scale-110"
                       : selectedIndex === index
-                        ? "bg-blue-500 text-white"
-                        : "bg-yellow-100"
+                      ? "bg-blue-500 text-white"
+                      : "bg-yellow-100"
                   }`}
               >
                 {val}
               </div>
 
-              {/* ARROW */}
               {index !== list.length - 1 && (
                 <span className="text-xl font-bold">→</span>
               )}
 
-              {/* NULL */}
               {index === list.length - 1 && (
                 <span className="text-sm text-gray-500">null</span>
               )}
             </div>
           ))}
         </div>
-        {/* RIGHT → SIDE PANEL */}
-        <div className="border rounded-xl p-4 bg-white space-y-4">
-          {/* STATUS */}
+
+        {/* RIGHT PANEL */}
+        <div className="border rounded-xl p-4 bg-white space-y-6">
+          {/* LINKED LIST STATUS */}
           <div>
-            <h3 className="font-bold text-lg">Status</h3>
-            <div className="text-blue-600 text-sm min-h-[40px]">
-              {message || "Waiting for operation..."}
+            <h3 className="font-bold text-lg mb-2 text-black">
+              Linked List Status
+            </h3>
+
+            <div className="text-sm space-y-1 text-black">
+              <div>
+                <span className="font-semibold">Operation:</span>{" "}
+                <span>{status.operation}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Value:</span>{" "}
+                <span>{status.value}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Position:</span>{" "}
+                <span>{status.position}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">List Length:</span>{" "}
+                <span>{status.length}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Head:</span>{" "}
+                <span>{status.head}</span>
+              </div>
+
+              <div>
+                <span className="font-semibold">Tail:</span>{" "}
+                <span>{status.tail}</span>
+              </div>
             </div>
           </div>
 
@@ -167,7 +243,7 @@ export default function SingleLinkedList() {
             <h3 className="font-semibold text-lg mb-2">Node Info</h3>
 
             {selectedIndex === null ? (
-              <div className="text-gray-400 text-sm">Click a node</div>
+              <div className="text-sm">Click a node</div>
             ) : (
               <div className="text-sm space-y-1">
                 <div>Value: {list[selectedIndex]}</div>
@@ -182,14 +258,13 @@ export default function SingleLinkedList() {
             )}
           </div>
 
-          {/* LEGEND */}
+          {/* Color Key */}
           <div className="pt-2 border-t text-sm space-y-1">
-            <div className="font-medium">Color Key</div>
+            <div className="font-bold text-lg">Color Key</div>
             <div>🟡 Normal node</div>
             <div>🔵 Selected node</div>
             <div>🟨 Active operation</div>
           </div>
-
         </div>
       </div>
     </section>

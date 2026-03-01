@@ -11,15 +11,25 @@ export default function Stack() {
   const [message, setMessage] = useState("");
   const [isOperating, setIsOperating] = useState(false);
 
+  // 🔥 NEW STATES
+  const [operation, setOperation] = useState("");
+  const [operationCount, setOperationCount] = useState(0);
+
   /* ---------- PUSH ---------- */
   const pushValue = async () => {
     if (!value || isOperating) return;
+
     setIsOperating(true);
+    setOperation("Push");
+
     const newStack = [...stack, value];
     setStack(newStack);
     setActiveIndex(newStack.length - 1);
     setMessage(`✅ Pushed "${value}" to stack`);
+    setOperationCount((prev) => prev + 1);
+
     await sleep(600);
+
     setActiveIndex(null);
     setValue("");
     setIsOperating(false);
@@ -31,14 +41,21 @@ export default function Stack() {
       setMessage("❌ Stack is Empty");
       return;
     }
+
     setIsOperating(true);
+    setOperation("Pop");
+
     const topIndex = stack.length - 1;
     setActiveIndex(topIndex);
     setMessage(`Removing "${stack[topIndex]}"`);
+    setOperationCount((prev) => prev + 1);
+
     await sleep(600);
+
     const newStack = [...stack];
     newStack.pop();
     setStack(newStack);
+
     setActiveIndex(null);
     setIsOperating(false);
   };
@@ -49,6 +66,8 @@ export default function Stack() {
       setMessage("❌ Stack is Empty");
       return;
     }
+
+    setOperation("Peek");
     setMessage(`Top element is "${stack[stack.length - 1]}"`);
   };
 
@@ -56,14 +75,16 @@ export default function Stack() {
   const clearStack = () => {
     if (isOperating) return;
 
+    setOperation("Clear");
     setStack([]);
     setActiveIndex(null);
     setMessage("Stack cleared");
+    setOperationCount((prev) => prev + 1);
   };
 
   return (
     <section className="bg-white m-8 p-8 rounded-2xl border shadow space-y-6">
-      <h2 className="text-3xl font-bold">Stack Visualizer</h2>
+      <h2 className="text-3xl font-bold">Stack</h2>
 
       {/* CONTROLS */}
       <div className="flex gap-4 flex-wrap">
@@ -131,13 +152,13 @@ export default function Stack() {
 
                   <div
                     className={`
-                    w-32 h-12 flex items-center justify-center rounded-lg font-bold border transition-all duration-300
-
-                    ${
-                      activeIndex === index
-                        ? "bg-yellow-400 scale-110"
-                        : "bg-yellow-200"
-                    }
+                      w-32 h-12 flex items-center justify-center 
+                      rounded-lg font-bold border transition-all duration-300
+                      ${
+                        activeIndex === index
+                          ? "bg-yellow-400 scale-110"
+                          : "bg-yellow-200"
+                      }
                     `}
                   >
                     {item}
@@ -152,19 +173,21 @@ export default function Stack() {
         <div className="w-64 border rounded-xl p-6 bg-white shadow space-y-4">
           {/* STATUS */}
           <div>
-            <div className="font-bold text-lg">Status</div>
-            <div className="text-blue-600 text-sm mt-1 min-h-[40px]">
+            <div className="font-bold text-lg">Stack Status</div>
+            <div className="text-sm"><span className="font-semibold">Operation: </span>
               {message || "Waiting for operation..."}
+            <div><span className="font-semibold">Stack Size: </span>{stack.length}</div>
+            <div><span className="font-semibold">Is Empty: </span>{stack.length === 0 ? "Yes" : "No"}</div>
+            <div><span className="font-semibold">Top Index: </span>{stack.length > 0 ? stack.length - 1 : "-"}</div>
+            <div><span className="font-semibold">Top Value: </span>{stack.length > 0 ? stack[stack.length - 1] : "-"}</div>
+            <div><span className="font-semibold">Last Operation: </span>{operation || "None"}</div>
+            <div><span className="font-semibold">Operations Count: </span>{operationCount}</div>
             </div>
           </div>
 
           {/* INFO */}
           <div className="space-y-2 text-sm">
-            <div>📊 Stack Size: {stack.length}</div>
-            <div>🔝 Top Index: {stack.length > 0 ? stack.length - 1 : "-"}</div>
-            <div>
-              📦 Top Value: {stack.length > 0 ? stack[stack.length - 1] : "-"}
-            </div>
+           
           </div>
 
           {/* Color Key */}
