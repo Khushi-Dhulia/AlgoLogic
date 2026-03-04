@@ -5,7 +5,7 @@ import BinaryTree from "../components/Visualization/BinaryTree";
 import HashTable from "../components/Visualization/HashTable";
 import HeapSort from "../components/Visualization/Heap_Sort";
 import SingleLinkedList from "../components/Visualization/Single_Linked_List";
-import DoublyLinkedList from "../components/Visualization/Double_Linked_List";
+import DoublyLinkedList from "../components/Visualization/Double_linked_List";
 import CircularLinkedList from "../components/Visualization/Circular_Linked_List";
 import SingleQueue from "../components/Visualization/Single_queue";
 import CircularQueue from "../components/Visualization/Circular_queue";
@@ -26,7 +26,7 @@ import SelectionSort from "../components/Visualization/Selection_Sort";
 import BubbleSort from "../components/Visualization/Bubble_Sort";
 import BucketSort from "../components/Visualization/Bucket_Sort";
 import CountingSort from "../components/Visualization/Counting_Sort";
-export default function BinarySearchPage() {
+export default function VisualDSALGO() {
   return (
     <main className="bg-[var(--yellow-background)]">
       <AlgoHeader />
