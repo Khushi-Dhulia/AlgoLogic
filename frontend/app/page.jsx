@@ -6,6 +6,8 @@ import HomePage from "./pages/Home";
 import VisualDSALGO from "./pages/DataStructure"
 import {AlgoHeader,Video_Section,Complexity_Section,Implementation,SubmitAnswer,DeepDiveSection,Previous_Topic,FAQ}  from "./components/DS_section";
 import Array from "./components/Visualization/Array";
+import DashboardPage from "./pages/DashboardPage" 
+import TestPage from "./pages/Test"
 export default function Home() {
   return (
   <div>
@@ -14,12 +16,9 @@ export default function Home() {
       <Register/>  */}
       {/* <HomePage/>  */}
       {/* <VisualDSALGO/> */}
-      <AlgoHeader/><Array/>
-      {/* <Video_Section/> */}
-      <Video_Section/>
-      <Complexity_Section/>
-      <Implementation/>
-      <DeepDiveSection/><SubmitAnswer/><Previous_Topic/><FAQ/>
+      {/* <AlgoHeader/><Array/><Video_Section/><Complexity_Section/><Implementation/><DeepDiveSection/><SubmitAnswer/><Previous_Topic/><FAQ/> */}
+      {/* <DashboardPage/> */}
+      <TestPage/>
   </div> 
 );
 }

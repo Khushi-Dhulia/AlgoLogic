@@ -208,40 +208,82 @@ export function Implementation(){
         </div>
 </section>)
 }
-export function DeepDiveSection(){
-  return(
-  <div className="space-y-6 p-8">
-        <h2 className="text-2xl font-bold text-neutral-800">
-          Deep Dive
-        </h2>
+export function DeepDiveSection() {
+  const [openIndex, setOpenIndex] = useState(null);
 
-        {["Advantages & Disadvantages", "Real World Applications"].map(
-          (item, i) => (
-            <div
-              key={i}
-              className="bg-[#ececea] rounded-[32px] px-8 py-6 flex justify-between items-center hover:bg-[#e6e6e4] transition"
+  const data = [
+    {
+      title: "Advantages & Disadvantages",
+      content: (
+        <div className="text-sm text-neutral-600 mt-4 space-y-2">
+          <p><b>Advantages:</b></p>
+          <ul className="list-disc ml-5">
+            <li>Fast searching with O(log n) time complexity</li>
+            <li>Efficient for large sorted datasets</li>
+          </ul>
+
+          <p className="mt-2"><b>Disadvantages:</b></p>
+          <ul className="list-disc ml-5">
+            <li>Works only on sorted arrays</li>
+            <li>Not suitable for linked lists</li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      title: "Real World Applications",
+      content: (
+        <div className="text-sm text-neutral-600 mt-4 space-y-2">
+          <ul className="list-disc ml-5">
+            <li>Searching in large databases</li>
+            <li>Dictionary / word search systems</li>
+            <li>Finding elements in sorted collections</li>
+            <li>Used in many library search functions</li>
+          </ul>
+        </div>
+      ),
+    },
+  ];
+
+  const toggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <div className="space-y-6 p-8">
+      <h2 className="text-2xl font-bold text-neutral-800">Deep Dive</h2>
+
+      {data.map((item, i) => (
+        <div
+          key={i}
+          className="bg-[#ececea] rounded-[32px] px-8 py-6 hover:bg-[#e6e6e4] transition cursor-pointer"
+          onClick={() => toggle(i)}
+        >
+          <div className="flex justify-between items-center">
+            <span className="font-semibold text-lg">{item.title}</span>
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`text-neutral-500 transition-transform ${
+                openIndex === i ? "rotate-180" : ""
+              }`}
             >
-              <span className="font-semibold font-lg">
-                {item}
-              </span>
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
 
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-neutral-500"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </div>
-          )
-        )}
-      </div>)
+          {openIndex === i && item.content}
+        </div>
+      ))}
+    </div>
+  );
 }
 export function SubmitAnswer(){
   return(<section className="p-8">
