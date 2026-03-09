@@ -6,7 +6,7 @@ import { FooterDetails } from "../components/auth/AuthForm";
 
 export default function Login() {
   return (
-  <AuthLayout>
+    <AuthLayout>
       {/* LEFT SIDE */}
       <AuthLeft>
         <AuthForm
@@ -14,15 +14,32 @@ export default function Login() {
           subtitle="Pick up right where you left your DSA journey"
           buttonText="Login"
           fields={[
-            {name: "email",label: "Email Address",type: "email",placeholder: "student@university.edu",icon: EnvelopeIcon},
-            {name: "password",label: "Password",type: "password",placeholder: "Enter your password",rightIcon: EyeSlashIcon  ,extra: (
-                <span className="pl-2 text-sm text-gray-600 cursor-pointer hover:underline hover:decoration-[#FFEA00]">
+            {
+              name: "email",
+              label: "Email Address",
+              type: "email",
+              placeholder: "Enter Email ID",
+              icon: EnvelopeIcon,
+            },
+            {
+              name: "password",
+              label: "Password",
+              type: "password",
+              placeholder: "Enter Password",
+              rightIcon: EyeSlashIcon,
+              extra: (
+                <span className="text-sm font-semibold cursor-pointer hover:underline hover:decoration-[#FFEA00] hover:decoration-2">
                   Forgot Password?
-                </span>)},
+                </span>
+              ),
+            },
           ]}
         />
         <SocialAuth />
-        <FooterDetails footerText="New here?" footerAction="Create an account" />
+        <FooterDetails
+          footerText="New here?"
+          footerAction="Create an account"
+        />
       </AuthLeft>
 
       {/* RIGHT SIDE */}
@@ -47,7 +64,7 @@ export default function Login() {
             <p className="pl-4 text-gray-300">
               <span className="text-[#FFEA00]">this.think();</span>
               <br />
-              <span className="text-[#FFEA00]">this.code();</span>
+              <span className="text-green-400">this.code();</span>
               <br />
               <span className="text-gray-400">// consistency is key</span>
             </p>
@@ -60,7 +77,8 @@ export default function Login() {
         <div className="pl-16 space-y-2">
           <p className="text-2xl font-bold">Welcome Back, Coder!</p>
           <p className="text-gray-400">
-            Ready to tackle new algorithms? Your Dashboard is updated with today's top challenges tailored just for you.
+            Ready to tackle new algorithms? Your Dashboard is updated with
+            today's top challenges tailored just for you.
           </p>
         </div>
 
@@ -82,4 +100,3 @@ export default function Login() {
     </AuthLayout>
   );
 }
-

@@ -12,13 +12,13 @@ export default function Home() {
   return (
   <div>
     <Navbar/>
-        {/* <Login /> 
-      <Register/>  */}
-      {/* <HomePage/>  */}
+      {/* <Login /> 
+      <Register/> */}
+      <HomePage/> 
       {/* <VisualDSALGO/> */}
       {/* <AlgoHeader/><Array/><Video_Section/><Complexity_Section/><Implementation/><DeepDiveSection/><SubmitAnswer/><Previous_Topic/><FAQ/> */}
       {/* <DashboardPage/> */}
-      <TestPage/>
+      {/* <TestPage/> */}
   </div> 
 );
 }

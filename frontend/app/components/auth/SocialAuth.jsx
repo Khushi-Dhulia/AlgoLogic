@@ -11,7 +11,7 @@ export default function SocialAuth() {
         <button className="allbutton flex-1 border border-gray-200 rounded-full py-3 text-sm font-medium">
           Google
         </button>
-        <button className="flex-1 border border-gray-200 rounded-full py-3 text-sm font-medium hover:bg-[#FFEA00]">
+        <button className="allbutton flex-1 border border-gray-200 rounded-full py-3 text-sm font-medium hover:bg-[#FFEA00]">
           GitHub
         </button>
       </div>

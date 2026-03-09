@@ -25,10 +25,8 @@ export default function AuthForm({
     <>
       {/* <h1 className="text-3xl font-bold text-gray-900 mb-2 ml-7 mt-2">{title}</h1> */}
       <h1 className="flex items-center justify-center text-3xl font-bold text-gray-900 mb-2 ml-4">{title}</h1>
-
-      {subtitle && <p className="flex items-center justify-center text-gray-600 mb-2 text-sm mr-7">{subtitle}</p>}
-
-      <div className="grid grid-cols-2 gap-2">
+      {subtitle && <p className="flex items-center justify-center font-semibold text-gray-600 mb-2 text-base mr-7">{subtitle}</p>}
+      <div className="grid grid-cols-2 gap-4">
         {fields.map((field) => (
           <div key={field.name} className={field.halfWidth ? "col-span-1" : "col-span-2"}>
             <InputField {...field} />
@@ -36,7 +34,7 @@ export default function AuthForm({
         ))}
       </div>
 
-      <button className="w-full allbutton font-semibold pt-2 py-3 rounded-full transition-all duration-300 shadow-md">
+      <button className="w-full allbutton font-semibold mt-5 py-3 rounded-full transition-all duration-300 shadow-md">
         {buttonText}
       </button>
 
@@ -44,4 +42,3 @@ export default function AuthForm({
     </>
   );
 }
-
