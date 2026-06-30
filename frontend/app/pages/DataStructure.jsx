@@ -1,4 +1,4 @@
-import { AlgoHeader,ComplexitySection,VideoAndSummary } from "../components/DS_section";
+import { AlgoHeader,Complexity_Section,Video_Section } from "../components/DS_section";
 import RadixSort from "../components/Visualization/Redix_Sort";
 import Array from "../components/Visualization/Array";
 import BinaryTree from "../components/Visualization/BinaryTree";
@@ -34,8 +34,8 @@ export default function VisualDSALGO() {
       <SingleQueue/><CircularQueue/><PriorityQueue/><Deque/><SetDS/><MapDS/><Stack/><LinearSearch/>
       <BinarySearch/><BFS/><DFS/><Dijkstra/><MergeSort/><InsertionSort/><QuickSort/><SelectionSort/><BubbleSort/>
       <BucketSort/><CountingSort/><HeapSort/><RadixSort/>
-      <VideoAndSummary />
-      <ComplexitySection />
+      <Video_Section />
+      <Complexity_Section />
     </main>
   );
 }

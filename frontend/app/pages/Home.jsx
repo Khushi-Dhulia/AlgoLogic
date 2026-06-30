@@ -12,7 +12,7 @@ export default function HomePage() {
         <div className="absolute inset-0 pointer-events-none" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-30 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <span className="inline-block px-4 py-1 pb-1 text-sm font-semibold bg-[#FFFBCF] text-yellow-700 rounded-full">
+            <span className="inline-block px-4 py-1 pb-1 text-sm font-semibold bg-[var(--yellow-soft)] text-yellow-700 rounded-full">
               Master DSA Visually
             </span>
             <h1 className="text-5xl font-extrabold text-gray-900 leading-[1.15] tracking-tight">
@@ -60,7 +60,7 @@ export default function HomePage() {
             className="relative flex justify-center"
           >
             {/* Knowledge glow */}
-            <div className="absolute w-80 h-80 bg-[#FFEA00]/15 rounded-full blur-3xl -z-10 right-24 top-32" />
+            <div className="absolute w-80 h-80 bg-[var(--yellow-primary)]/15 rounded-full blur-3xl -z-10 right-24 top-32" />
 
             {/* Floating card */}
             <motion.div
@@ -95,11 +95,11 @@ export default function HomePage() {
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                    className="h-[2px] bg-gradient-to-r from-transparent via-[#FFEA00] to-transparent mb-4"
+                    className="h-[2px] bg-gradient-to-r from-transparent via-[var(--yellow-primary)] to-transparent mb-4"
                   />
 
                   <p>
-                    <span className="text-[#FFEA00]">function</span>{" "}
+                    <span className="text-[var(--yellow-primary)]">function</span>{" "}
                     <span className="text-blue-400">MasterDSA</span>
                     <span className="text-white">() {"{"}</span>
                   </p>
@@ -127,7 +127,7 @@ export default function HomePage() {
         </div>
       </section></Reveal>
       <Reveal delay={0.1}>
-      <section className="bg-[#FFFBCF] py-8">
+      <section className="bg-[var(--yellow-soft)] py-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <FeatureItem
             icon="🎓"

@@ -86,7 +86,7 @@ export default function DashboardPage() {
               Binary Search Trees
             </h2>
 
-            <p className="text-neutral-600 mt-2">
+            <p className="text-[#525252] mt-2">
               Continue your Binary Search Trees module.
             </p>
 

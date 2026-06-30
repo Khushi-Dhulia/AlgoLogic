@@ -28,7 +28,7 @@ export default function Login() {
               placeholder: "Enter Password",
               rightIcon: EyeSlashIcon,
               extra: (
-                <span className="text-sm font-semibold cursor-pointer hover:underline hover:decoration-[#FFEA00] hover:decoration-2">
+                <span className="text-sm font-semibold cursor-pointer hover:underline hover:decoration-[var(--yellow-primary)] hover:decoration-2">
                   Forgot Password?
                 </span>
               ),
@@ -45,28 +45,28 @@ export default function Login() {
       {/* RIGHT SIDE */}
       <AuthRight>
         <div className="relative rotate-[-3deg]">
-          <span className="absolute top-0 right-10 text-[#44403c] text-7xl font-mono font-semibold select-none">
+          <span className="absolute top-0 right-10 text-[var(--mid-brown)] text-7xl font-mono font-semibold select-none">
             {"<>"}
           </span>
 
-          <div className="relative z-10 mt-16 bg-[#44403c] rounded-2xl p-8 font-mono text-sm leading-relaxed shadow-lg max-w-md">
+          <div className="relative z-10 mt-16 bg-[var(--mid-brown)] rounded-2xl p-8 font-mono text-sm leading-relaxed shadow-lg max-w-md">
             <div className="flex gap-2 pb-3">
-              <span className="w-3 h-3 bg-red-400 rounded-full" />
-              <span className="w-3 h-3 bg-yellow-400 rounded-full" />
-              <span className="w-3 h-3 bg-green-400 rounded-full" />
+              <span className="w-3 h-3 bg-[var(--red-400)] rounded-full" />
+              <span className="w-3 h-3 bg-[var(--yellow-400)] rounded-full" />
+              <span className="w-3 h-3 bg-[var(--green-400)] rounded-full" />
             </div>
 
             <p>
-              <span className="text-[#FFEA00]">while</span> (
-              <span className="text-blue-400">!isSolved</span>) {"{"}
+              <span className="text-[var(--yellow-primary)]">while</span> (
+              <span className="text-[var(--blue-400)]">!isSolved</span>) {"{"}
             </p>
 
-            <p className="pl-4 text-gray-300">
-              <span className="text-[#FFEA00]">this.think();</span>
+            <p className="pl-4 text-[var(--gray-300)]">
+              <span className="text-[var(--yellow-primary)]">this.think();</span>
               <br />
-              <span className="text-green-400">this.code();</span>
+              <span className="text-[var(--green-400)]">this.code();</span>
               <br />
-              <span className="text-gray-400">// consistency is key</span>
+              <span className="text-[var(--gray-400)]">// consistency is key</span>
             </p>
 
             <p>{"}"}</p>
@@ -76,7 +76,7 @@ export default function Login() {
         {/* TEXT */}
         <div className="pl-16 space-y-2">
           <p className="text-2xl font-bold">Welcome Back, Coder!</p>
-          <p className="text-gray-400">
+          <p className="text-[var(--gray-400)]">
             Ready to tackle new algorithms? Your Dashboard is updated with
             today's top challenges tailored just for you.
           </p>
@@ -88,11 +88,11 @@ export default function Login() {
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="w-9 h-9 rounded-full bg-gray-400 border-2 border-[#0E1324]"
+                className="w-9 h-9 rounded-full bg-[var(--gray-400)] border-2 border-[var(--navy-blue)]"
               />
             ))}
           </div>
-          <p className="text-gray-300 text-sm pl-26">
+          <p className="text-[var(--gray-300)] text-sm pl-26">
             Continue your progress with 2000+ others
           </p>
         </div>

@@ -35,31 +35,31 @@ export default function Register() {
       <AuthRight>
         {/* CODE BLOCK */}
         <div className="relative rotate-[3deg]">
-          <span className="absolute top-0 right-10 text-[#44403c] text-7xl font-mono font-semibold select-none">
+          <span className="absolute top-0 right-10 text-[var(--mid-brown)] text-7xl font-mono font-semibold select-none">
             {"<>"}
           </span>
 
-          <div className="relative z-10 mt-16 bg-[#44403c] rounded-2xl p-8 font-mono text-sm leading-relaxed shadow-lg max-w-md">
+          <div className="relative z-10 mt-16 bg-[var(--mid-brown)] rounded-2xl p-8 font-mono text-sm leading-relaxed shadow-lg max-w-md">
             <div className="flex gap-2 pb-3">
-              <span className="w-3 h-3 bg-red-400 rounded-full" />
-              <span className="w-3 h-3 bg-yellow-400 rounded-full" />
-              <span className="w-3 h-3 bg-green-400 rounded-full" />
+              <span className="w-3 h-3 bg-[var(--red-400)] rounded-full" />
+              <span className="w-3 h-3 bg-[var(--yellow-400)] rounded-full" />
+              <span className="w-3 h-3 bg-[var(--green-400)] rounded-full" />
             </div>
 
             <p>
-              <span className="text-[#FFEA00]">function</span>{" "}
-              <span className="text-blue-400">MasterDSA</span>() {"{"}
+              <span className="text-[var(--yellow-primary)]">function</span>{" "}
+              <span className="text-[var(--blue-400)]">MasterDSA</span>() {"{"}
             </p>
 
-            <p className="pl-4 text-gray-300">
-              <span className="text-[#FFEA00]">const</span> skills ={" "}
-              <span className="text-green-300">
+            <p className="pl-4 text-[var(--gray-300)]">
+              <span className="text-[var(--yellow-primary)]">const</span> skills ={" "}
+              <span className="text-[var(--green-300)]">
                 ['Arrays', 'Trees', 'Graphs']
               </span>
               ;
               <br />
               return{" "}
-              <span className="text-[#FFEA00]">"Dream Job Unlocked."</span>;
+              <span className="text-[var(--yellow-primary)]">"Dream Job Unlocked."</span>;
             </p>
 
             <p>{"}"}</p>
@@ -69,7 +69,7 @@ export default function Register() {
         {/* TEXT */}
         <div className="pl-16">
           <p className="text-2xl font-bold pb-2">Level Up Your Coding Skills</p>
-          <p className="text-gray-400 pr-10">
+          <p className="text-[var(--gray-400)] pr-10">
             Master Data Structures and Algorithms with our interactive
             visualizer and community-driven challenges.
           </p>
@@ -81,11 +81,11 @@ export default function Register() {
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="w-9 h-9 rounded-full bg-gray-400 border-2 border-[#0E1324]"
+                className="w-9 h-9 rounded-full bg-[var(--gray-400)] border-2 border-[var(--navy-blue)]"
               />
             ))}
           </div>
-          <p className="text-gray-300 text-sm pl-26">
+          <p className="text-[var(--gray-300)] text-sm pl-26">
             Joined by various developers this week
           </p>
         </div>

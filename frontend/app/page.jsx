@@ -15,10 +15,10 @@ export default function Home() {
       {/* <Login /> 
       <Register/> */}
       <HomePage/> 
-      {/* <VisualDSALGO/> */}
+      <VisualDSALGO/>
       {/* <AlgoHeader/><Array/><Video_Section/><Complexity_Section/><Implementation/><DeepDiveSection/><SubmitAnswer/><Previous_Topic/><FAQ/> */}
-      {/* <DashboardPage/> */}
-      {/* <TestPage/> */}
+      <DashboardPage/>
+      <TestPage/>
   </div> 
 );
 }

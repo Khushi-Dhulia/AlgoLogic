@@ -1,6 +1,6 @@
 export function AuthLayout({ children }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#FFEA00] to-slate-50">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[var(--yellow-primary)] to-slate-50">
       <div className="h-[600px] w-[1040px] rounded-4xl flex overflow-hidden shadow-[0px_7px_13px_9px_rgba(8,_11,_14,_0.06)]">
         {children}
       </div>
@@ -18,7 +18,7 @@ export function AuthLeft({ children }) {
 
 export function AuthRight({ children }) {
   return (
-    <div className="w-1/2 bg-[#292524] text-white flex flex-col justify-between p-10">
+    <div className="w-1/2 bg-[#292524] text-[var(--white)] flex flex-col justify-between p-10">
       {children}
     </div>
   );
