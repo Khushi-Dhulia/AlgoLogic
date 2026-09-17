@@ -18,7 +18,7 @@ export default function Register() {
         <AuthForm
           title="Start Your DSA Journey 🚀"
           subtitle="Join thousands of students mastering algorithms today."
-          buttonText="Create Free Account"
+          buttonText="Create Account"
           fields={[
           { name: "name", label: "Full Name", placeholder: "Enter your full name", icon: UserIcon },
           { name: "email", label: "Email Address", type: "email", placeholder: "student@university.edu", icon: EnvelopeIcon },

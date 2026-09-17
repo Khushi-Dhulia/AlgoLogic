@@ -29,87 +29,87 @@ export function AlgoHeader() {
     </section>
   );
 }
-export function Video_Section(){
-  return(
-  <section className="p-8">
-    <div className="grid grid-cols-3 gap-10">
-          {/* VIDEO SIDE */}
-          <div className="col-span-2 space-y-5">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-[var(--neutral-800)]">
-                Video Explanation
-              </h2>
-              <span className="text-sm text-[var(--neutral-400)]">12 min watch</span>
-            </div>
+// export function Video_Section(){
+//   return(
+//   <section className="p-8">
+//     <div className="grid grid-cols-3 gap-10">
+//           {/* VIDEO SIDE */}
+//           <div className="col-span-2 space-y-5">
+//             <div className="flex justify-between items-center">
+//               <h2 className="text-2xl font-semibold text-[var(--neutral-800)]">
+//                 Video Explanation
+//               </h2>
+//               <span className="text-sm text-[var(--neutral-400)]">12 min watch</span>
+//             </div>
 
-            <div className="bg-[var(--light-gray)] rounded-[32px] p-10 shadow-[inset_0_2px_8px_rgba(0,0,0,0.05)]">
-              <div className="relative bg-[var(--light-gray)] h-[360px] rounded-[28px] flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.08)]">
-                {/* Play Button */}
-                <button className="w-16 h-16 rounded-full bg-[var(--yellow-400)] flex items-center justify-center shadow-lg hover:scale-105 transition">
-                  <div className="ml-1 w-0 h-0 border-l-[10px] border-l-black border-y-[6px] border-y-transparent" />
-                </button>
-              </div>
-            </div>
-          </div>
+//             <div className="bg-[var(--light-gray)] rounded-[32px] p-10 shadow-[inset_0_2px_8px_rgba(0,0,0,0.05)]">
+//               <div className="relative bg-[var(--light-gray)] h-[360px] rounded-[28px] flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.08)]">
+//                 {/* Play Button */}
+//                 <button className="w-16 h-16 rounded-full bg-[var(--yellow-400)] flex items-center justify-center shadow-lg hover:scale-105 transition">
+//                   <div className="ml-1 w-0 h-0 border-l-[10px] border-l-black border-y-[6px] border-y-transparent" />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
 
-          {/* QUICK SUMMARY */}
-          <div className="bg-[var(--yellow-background)] border-[var(--yellow-border)] border-2 rounded-[28px] p-8 shadow-[0_8px_20px_rgba(0,0,0,0.04)]">
-            <h3 className="text-lg font-semibold text-[var(--neutral-800)] mb-8">
-              Quick Summary
-            </h3>
+//           {/* QUICK SUMMARY */}
+//           <div className="bg-[var(--yellow-background)] border-[var(--yellow-border)] border-2 rounded-[28px] p-8 shadow-[0_8px_20px_rgba(0,0,0,0.04)]">
+//             <h3 className="text-lg font-semibold text-[var(--neutral-800)] mb-8">
+//               Quick Summary
+//             </h3>
 
-            <div className="relative">
-              {/* Vertical Line */}
-              <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-[var(--neutral-200)]" />
+//             <div className="relative">
+//               {/* Vertical Line */}
+//               <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-[var(--neutral-200)]" />
 
-              <ul className="space-y-8 text-sm text-[var(--neutral-500)]">
-                {/* Active Item */}
-                <li className="relative flex gap-4">
-                  <div className="relative z-10">
-                    <div className="w-4 h-4 rounded-full bg-[var(--yellow-400)]" />
-                  </div>
-                  <div>
-                    <p className="text-[var(--neutral-700)] font-medium">0:00 - 2:15</p>
-                    <p>Concept of "Divide and Conquer"</p>
-                  </div>
-                </li>
+//               <ul className="space-y-8 text-sm text-[var(--neutral-500)]">
+//                 {/* Active Item */}
+//                 <li className="relative flex gap-4">
+//                   <div className="relative z-10">
+//                     <div className="w-4 h-4 rounded-full bg-[var(--yellow-400)]" />
+//                   </div>
+//                   <div>
+//                     <p className="text-[var(--neutral-700)] font-medium">0:00 - 2:15</p>
+//                     <p>Concept of "Divide and Conquer"</p>
+//                   </div>
+//                 </li>
 
-                {/* Other Items */}
-                <li className="relative flex gap-4">
-                  <div className="relative z-10">
-                    <div className="w-4 h-4 rounded-full bg-[var(--neutral-300)]" />
-                  </div>
-                  <div>
-                    <p className="text-[var(--neutral-700)] font-medium">2:16 - 5:40</p>
-                    <p>Iterative Implementation</p>
-                  </div>
-                </li>
+//                 {/* Other Items */}
+//                 <li className="relative flex gap-4">
+//                   <div className="relative z-10">
+//                     <div className="w-4 h-4 rounded-full bg-[var(--neutral-300)]" />
+//                   </div>
+//                   <div>
+//                     <p className="text-[var(--neutral-700)] font-medium">2:16 - 5:40</p>
+//                     <p>Iterative Implementation</p>
+//                   </div>
+//                 </li>
 
-                <li className="relative flex gap-4">
-                  <div className="relative z-10">
-                    <div className="w-4 h-4 rounded-full bg-[var(--neutral-300)]" />
-                  </div>
-                  <div>
-                    <p className="text-[var(--neutral-700)] font-medium">5:41 - 9:00</p>
-                    <p>Recursive Implementation</p>
-                  </div>
-                </li>
+//                 <li className="relative flex gap-4">
+//                   <div className="relative z-10">
+//                     <div className="w-4 h-4 rounded-full bg-[var(--neutral-300)]" />
+//                   </div>
+//                   <div>
+//                     <p className="text-[var(--neutral-700)] font-medium">5:41 - 9:00</p>
+//                     <p>Recursive Implementation</p>
+//                   </div>
+//                 </li>
 
-                <li className="relative flex gap-4">
-                  <div className="relative z-10">
-                    <div className="w-4 h-4 rounded-full bg-[var(--neutral-300)]" />
-                  </div>
-                  <div>
-                    <p className="text-[var(--neutral-700)] font-medium">9:01 - 12:00</p>
-                    <p>Time Complexity Analysis</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        </section>);
-}
+//                 <li className="relative flex gap-4">
+//                   <div className="relative z-10">
+//                     <div className="w-4 h-4 rounded-full bg-[var(--neutral-300)]" />
+//                   </div>
+//                   <div>
+//                     <p className="text-[var(--neutral-700)] font-medium">9:01 - 12:00</p>
+//                     <p>Time Complexity Analysis</p>
+//                   </div>
+//                 </li>
+//               </ul>
+//             </div>
+//           </div>
+//         </div>
+//         </section>);
+// }
 export function Complexity_Section(){
   return( 
   <section  className="p-8">
@@ -184,7 +184,7 @@ export function Implementation(){
             </h2>
 
             <div className="flex items-center gap-6">
-              {["Python", "Java", "C++", "Go", "JavaScript"].map((lang) => (
+              {["Python", "Go", "C++", "Java"].map((lang) => (
                 <button
                   key={lang}
                   onClick={() => setActiveLang(lang)}
@@ -349,6 +349,51 @@ export function Previous_Topic(){
           <p className="text-xs text-[var(--neutral-400)]">Start Learning</p>
         </div>
       </div>)
+}
+export function TopicTest({ topicName }) {
+  return (
+    <section className="mt-12 rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] sm:p-8">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <span className="inline-flex rounded-full bg-yellow-300 px-3 py-1 text-xs font-semibold text-gray-900">
+            Test Yourself
+          </span>
+
+          <h2 className="mt-3 text-xl font-semibold text-gray-900">
+            Test Your {topicName} Knowledge
+          </h2>
+
+          <p className="mt-2 max-w-xl text-sm leading-6 text-gray-500">
+            Check your understanding of {topicName} with topic-specific
+            questions and see how well you have learned this topic.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => alert(`Starting ${topicName} Test`)}
+          className="
+            shrink-0
+            rounded-xl
+            bg-[#ffd400]
+            px-6
+            py-3
+            text-sm
+            font-semibold
+            text-gray-900
+            shadow-sm
+            transition-all
+            hover:-translate-y-0.5
+            hover:bg-[#f5c900]
+            hover:shadow-md
+            active:translate-y-0
+          "
+        >
+          Take {topicName} Test →
+        </button>
+      </div>
+    </section>
+  );
 }
 export function FAQ(){
   const [openFAQ, setOpenFAQ] = useState(null);
