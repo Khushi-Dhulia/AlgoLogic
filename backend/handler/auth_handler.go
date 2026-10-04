@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"net/http"
+	"net/url"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -21,6 +23,7 @@ func NewAuthHandler(
 	}
 }
 
+// Register handles email/password registration
 func (h *AuthHandler) Register(c *gin.Context) {
 
 	var request models.RegisterRequest
@@ -48,6 +51,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 	})
 }
 
+// Login handles email/password login
 func (h *AuthHandler) Login(c *gin.Context) {
 
 	var request models.LoginRequest
@@ -75,7 +79,9 @@ func (h *AuthHandler) Login(c *gin.Context) {
 	})
 }
 
+// Me returns the currently authenticated user
 func (h *AuthHandler) Me(c *gin.Context) {
+
 	userIDValue, exists := c.Get("user_id")
 
 	if !exists {
@@ -85,7 +91,7 @@ func (h *AuthHandler) Me(c *gin.Context) {
 		return
 	}
 
-	userID, ok := userIDValue.(int)
+	userID, ok := userIDValue.(*int)
 
 	if !ok {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -94,7 +100,7 @@ func (h *AuthHandler) Me(c *gin.Context) {
 		return
 	}
 
-	user, err := h.AuthService.GetUserByID(&userID)
+	user, err := h.AuthService.GetUserByID(userID)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -114,16 +120,19 @@ func (h *AuthHandler) Me(c *gin.Context) {
 		"user": user,
 	})
 }
+
+// GoogleLogin redirects the user to Google OAuth
 func (h *AuthHandler) GoogleLogin(c *gin.Context) {
 
-	url := h.AuthService.GetGoogleAuthURL()
+	authURL := h.AuthService.GetGoogleAuthURL()
 
 	c.Redirect(
 		http.StatusTemporaryRedirect,
-		url,
+		authURL,
 	)
 }
 
+// GoogleCallback handles Google's OAuth callback
 func (h *AuthHandler) GoogleCallback(c *gin.Context) {
 
 	code := c.Query("code")
@@ -144,9 +153,14 @@ func (h *AuthHandler) GoogleCallback(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Google login successful",
-		"user":    user,
-		"token":   token,
-	})
+	// Redirect to Next.js frontend with JWT
+	frontendURL := os.Getenv("FrontendURL")
+
+	c.Redirect(
+		http.StatusTemporaryRedirect,
+		frontendURL+"/auth/google/callback?token="+url.QueryEscape(token),
+	)
+
+	// user is returned by GoogleLogin but isn't needed for redirect.
+	_ = user
 }
