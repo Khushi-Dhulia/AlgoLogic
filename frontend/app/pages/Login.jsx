@@ -1,10 +1,54 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import AuthForm from "../components/auth/AuthForm";
 import { EnvelopeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import SocialAuth from "../components/auth/SocialAuth";
-import { AuthLayout, AuthLeft, AuthRight } from "../components/auth/AuthLayout";
+import {
+  AuthLayout,
+  AuthLeft,
+  AuthRight,
+} from "../components/auth/AuthLayout";
 import { FooterDetails } from "../components/auth/AuthForm";
 
 export default function Login() {
+  const router = useRouter();
+
+  const handleLogin = async (formData) => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || "Invalid email or password");
+        return;
+      }
+
+      // Store JWT
+      localStorage.setItem("token", data.token);
+
+      // Redirect after successful login
+      router.replace("/");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Unable to connect to server");
+    }
+  };
+
   return (
     <AuthLayout>
       {/* LEFT SIDE */}
@@ -13,6 +57,7 @@ export default function Login() {
           title="Welcome Back! 🚀"
           subtitle="Pick up right where you left your DSA journey"
           buttonText="Login"
+          onSubmit={handleLogin}
           fields={[
             {
               name: "email",
@@ -35,7 +80,9 @@ export default function Login() {
             },
           ]}
         />
+
         <SocialAuth />
+
         <FooterDetails
           footerText="New here?"
           footerAction="Create an account"
@@ -57,16 +104,24 @@ export default function Login() {
             </div>
 
             <p>
-              <span className="text-[var(--yellow-primary)]">while</span> (
-              <span className="text-[var(--blue-400)]">!isSolved</span>) {"{"}
+              <span className="text-[var(--yellow-primary)]">while</span>{" "}
+              (
+              <span className="text-[var(--blue-400)]">!isSolved</span>
+              ) {"{"}
             </p>
 
             <p className="pl-4 text-[var(--gray-300)]">
-              <span className="text-[var(--yellow-primary)]">this.think();</span>
+              <span className="text-[var(--yellow-primary)]">
+                this.think();
+              </span>
               <br />
-              <span className="text-[var(--green-400)]">this.code();</span>
+              <span className="text-[var(--green-400)]">
+                this.code();
+              </span>
               <br />
-              <span className="text-[var(--gray-400)]">// consistency is key</span>
+              <span className="text-[var(--gray-400)]">
+                // consistency is key
+              </span>
             </p>
 
             <p>{"}"}</p>
@@ -76,6 +131,7 @@ export default function Login() {
         {/* TEXT */}
         <div className="pl-16 space-y-2">
           <p className="text-2xl font-bold">Welcome Back, Coder!</p>
+
           <p className="text-[var(--gray-400)]">
             Ready to tackle new algorithms? Your Dashboard is updated with
             today's top challenges tailored just for you.
@@ -92,6 +148,7 @@ export default function Login() {
               />
             ))}
           </div>
+
           <p className="text-[var(--gray-300)] text-sm pl-26">
             Continue your progress with 2000+ others
           </p>

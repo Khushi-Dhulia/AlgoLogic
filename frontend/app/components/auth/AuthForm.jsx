@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import InputField from "../ui/InputField";
 
 // Reusable Footer Component
@@ -20,24 +23,63 @@ export default function AuthForm({
   buttonText,
   footerText,
   footerAction,
+  onSubmit,
 }) {
+  const [formData, setFormData] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    onSubmit(formData);
+  };
+
   return (
     <>
-      <h1 className="flex items-center justify-center text-3xl font-bold text-[var(--gray-900)] mb-2 ml-4">{title}</h1>
-      {subtitle && <p className="flex items-center justify-center font-semibold text-[var(--gray-600)] mb-2 text-base mr-7">{subtitle}</p>}
-      <div className="grid grid-cols-2 gap-4">
-        {fields.map((field) => (
-          <div key={field.name} className={field.halfWidth ? "col-span-1" : "col-span-2"}>
-            <InputField {...field} />
-          </div>
-        ))}
-      </div>
+      <h1 className="flex items-center justify-center text-3xl font-bold text-[var(--gray-900)] mb-2 ml-4">
+        {title}
+      </h1>
 
-      <button className="w-full allbutton font-semibold mt-5 py-3 rounded-full transition-all duration-300 shadow-md">
-        {buttonText}
-      </button>
+      {subtitle && (
+        <p className="flex items-center justify-center font-semibold text-[var(--gray-600)] mb-2 text-base mr-7">
+          {subtitle}
+        </p>
+      )}
 
-      {footerText && <FooterDetails footerText={footerText} footerAction={footerAction} />}
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-2 gap-4">
+          {fields.map((field) => (
+            <div
+              key={field.name}
+              className={field.halfWidth ? "col-span-1" : "col-span-2"}
+            >
+              <InputField
+                {...field}
+                value={formData[field.name] || ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    [field.name]: e.target.value,
+                  })
+                }
+              />
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="submit"
+          className="w-full allbutton font-semibold mt-5 py-3 rounded-full transition-all duration-300 shadow-md"
+        >
+          {buttonText}
+        </button>
+      </form>
+
+      {footerText && (
+        <FooterDetails
+          footerText={footerText}
+          footerAction={footerAction}
+        />
+      )}
     </>
   );
 }
