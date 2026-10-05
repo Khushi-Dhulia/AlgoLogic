@@ -73,9 +73,12 @@ export default function Login() {
               placeholder: "Enter Password",
               rightIcon: EyeSlashIcon,
               extra: (
-                <span className="text-sm font-semibold cursor-pointer hover:underline hover:decoration-[var(--yellow-primary)] hover:decoration-2">
-                  Forgot Password?
-                </span>
+              <span
+                onClick={() => router.push("/forgot-password")}
+                className="text-sm font-semibold cursor-pointer hover:underline hover:decoration-[var(--yellow-primary)] hover:decoration-2"
+              >
+                Forgot Password?
+              </span>
               ),
             },
           ]}
