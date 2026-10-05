@@ -9,13 +9,14 @@ import Array from "./components/Visualization/Array";
 import DashboardPage from "./pages/DashboardPage" 
 import TestPage from "./pages/Test"
 import PracticePage from "./components/MockTestPage"
+
 export default function Home() {
   return (
   <div>
-    <Navbar/>
+    {/* <Navbar/> */}
       <Login /> 
       <Register/>
-      <HomePage/> 
+      {/* <HomePage/>  */}
       {/* <VisualDSALGO/> */}
       {/* <AlgoHeader/><Array/><Complexity_Section/><Implementation/><DeepDiveSection/><TopicTest topicName="Array"/><SubmitAnswer/><Previous_Topic/><FAQ/> */}
       {/* <DashboardPage/> */}

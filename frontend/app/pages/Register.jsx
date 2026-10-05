@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import {
   EnvelopeIcon,
   UserIcon,
@@ -7,18 +8,64 @@ import {
 } from "@heroicons/react/24/outline";
 import AuthForm from "../components/auth/AuthForm";
 import { FooterDetails } from "../components/auth/AuthForm";
-import { AuthLayout, AuthLeft, AuthRight } from "../components/auth/AuthLayout";
+import {
+  AuthLayout,
+  AuthLeft,
+  AuthRight,
+} from "../components/auth/AuthLayout";
 import SocialAuth from "../components/auth/SocialAuth";
 
 export default function Register() {
+  const router = useRouter();
+
+  const handleRegister = async (formData) => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || "Registration failed");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+
+      alert("Registration successful!");
+
+      router.replace("/");
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Unable to connect to server");
+    }
+  };
+
   return (
-    <AuthLayout>
+<AuthLayout>
       {/* LEFT SIDE */}
       <AuthLeft>
         <AuthForm
           title="Start Your DSA Journey 🚀"
           subtitle="Join thousands of students mastering algorithms today."
           buttonText="Create Account"
+          onSubmit={handleRegister}
           fields={[
           { name: "name", label: "Full Name", placeholder: "Enter your full name", icon: UserIcon },
           { name: "email", label: "Email Address", type: "email", placeholder: "student@university.edu", icon: EnvelopeIcon },
@@ -28,7 +75,11 @@ export default function Register() {
         />
         {/* SOCIAL AUTH */}
         <SocialAuth />
-        <FooterDetails footerText="Already a member?" footerAction="Log in" />
+        <FooterDetails
+        footerText="Already a member?"
+        footerAction="Log in"
+        footerLink="/login"
+        />
       </AuthLeft>
 
       {/* RIGHT SIDE */}

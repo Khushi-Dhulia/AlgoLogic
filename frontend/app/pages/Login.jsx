@@ -84,8 +84,9 @@ export default function Login() {
         <SocialAuth />
 
         <FooterDetails
-          footerText="New here?"
-          footerAction="Create an account"
+        footerText="New here?"
+        footerAction="Create an account"
+        footerLink="/register"
         />
       </AuthLeft>
 

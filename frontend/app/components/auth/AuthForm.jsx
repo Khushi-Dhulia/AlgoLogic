@@ -1,20 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import InputField from "../ui/InputField";
 
-// Reusable Footer Component
-export function FooterDetails({ footerText, footerAction }) {
+export function FooterDetails({ footerText, footerAction, footerLink }) {
+  const router = useRouter();
+
   return (
     <p className="text-sm text-[var(--gray-600)] text-center mt-2">
       {footerText}{" "}
-      <span className="text-[var(--black)] font-semibold cursor-pointer hover:underline hover:decoration-[var(--yellow-primary)] hover:decoration-2">
+      <span
+        onClick={() => router.push(footerLink)}
+        className="text-[var(--black)] font-semibold cursor-pointer hover:underline hover:decoration-[var(--yellow-primary)] hover:decoration-2"
+      >
         {footerAction}
       </span>
     </p>
   );
 }
-
 // Main AuthForm
 export default function AuthForm({
   title,
