@@ -22,7 +22,8 @@ func SetupRoutes(
 
 	auth.GET("/google", authHandler.GoogleLogin)
 	auth.GET("/google/callback", authHandler.GoogleCallback)
-
+	auth.POST("/forgot-password", authHandler.ForgotPassword)
+	auth.POST("/reset-password", authHandler.ResetPassword)
 	auth.GET(
 		"/me",
 		middleware.AuthMiddleware(jwtSecret),

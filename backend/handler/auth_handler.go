@@ -164,3 +164,53 @@ func (h *AuthHandler) GoogleCallback(c *gin.Context) {
 	// user is returned by GoogleLogin but isn't needed for redirect.
 	_ = user
 }
+
+func (h *AuthHandler) ForgotPassword(c *gin.Context) {
+	var request models.ForgotPasswordRequest
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid request data",
+		})
+		return
+	}
+
+	err := h.AuthService.ForgotPassword(request.Email)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "password reset token generated",
+	})
+}
+
+func (h *AuthHandler) ResetPassword(c *gin.Context) {
+	var request models.ResetPasswordRequest
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid request data",
+		})
+		return
+	}
+
+	err := h.AuthService.ResetPassword(
+		request.Token,
+		request.NewPassword,
+	)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "password reset successful",
+	})
+}
